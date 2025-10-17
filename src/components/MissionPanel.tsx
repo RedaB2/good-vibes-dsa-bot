@@ -4,9 +4,9 @@ import leetcodeLogo from "@/assets/leetcode-logo.png";
 
 const MissionPanel = () => {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 p-1">
       {/* Mission Statement */}
-      <div className="bg-card/50 backdrop-blur-sm rounded-xl shadow-md hover:shadow-lg transition-all p-6">
+      <div className="bg-card/50 backdrop-blur-sm rounded-2xl shadow-md hover:shadow-lg transition-all p-6 overflow-hidden">
         <h3 className="text-secondary text-xl font-semibold mb-4">
           Why?
         </h3>

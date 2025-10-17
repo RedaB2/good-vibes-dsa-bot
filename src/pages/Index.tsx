@@ -145,7 +145,7 @@ const Index = () => {
       <Header />
 
       <main className="container mx-auto px-4 py-6 relative h-[calc(100vh-88px)] flex flex-col">
-        <div className={`grid grid-cols-1 gap-6 flex-1 overflow-hidden ${
+        <div className={`grid grid-cols-1 gap-6 flex-1 overflow-visible ${
           currentProblem ? 'md:grid-cols-1' : 'md:grid-cols-[320px_1fr]'
         }`}>
           {/* Left: Topic Accordion - Hover sidebar when problem selected */}
@@ -187,7 +187,7 @@ const Index = () => {
 
           {/* Right: Mission Panel - Only shows when no problem selected */}
           {!currentProblem && (
-            <aside className="w-full">
+            <aside className="w-full overflow-visible">
               <MissionPanel />
             </aside>
           )}
