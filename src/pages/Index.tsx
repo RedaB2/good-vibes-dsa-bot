@@ -98,8 +98,9 @@ const Index = () => {
       
       {/* "Let's learn!" message */}
       {showLetsLearn && (
-        <div className="fixed inset-0 z-[1900] flex items-center justify-center pointer-events-none">
-          <h2 className="text-6xl font-display text-secondary animate-scale-in drop-shadow-2xl">
+        <div className="fixed inset-0 z-[1900] flex flex-col items-center justify-center pointer-events-none gap-4">
+          <div style={{ height: "80px" }} /> {/* Space for robot */}
+          <h2 className="text-6xl font-display text-white animate-scale-in drop-shadow-2xl">
             Let's learn!
           </h2>
         </div>
