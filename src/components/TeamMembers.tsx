@@ -58,7 +58,7 @@ const DraggableMember = ({ image, name, quote, initialX, initialY, storageKey }:
     >
       <div className="flex flex-col items-center gap-1 relative">
         {/* Member Name */}
-        <div className="font-display text-sm text-white mb-1">{name}</div>
+        <div className="font-body text-sm text-white mb-1">{name}</div>
 
         {/* Member Image */}
           {image ? (
