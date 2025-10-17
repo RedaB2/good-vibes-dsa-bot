@@ -62,33 +62,23 @@ const FloatingRobot = ({ onClick, isAnimating = false, animationPosition }: Floa
   const displayPosition = isAnimating && animationPosition ? animationPosition : position;
 
   return (
-    <div
+    <img 
+      src={robotImage} 
+      alt="AI Tutor Robot" 
       style={{
         position: "fixed",
         left: `${displayPosition.x}px`,
         top: `${displayPosition.y}px`,
+        width: "80px",
+        height: "80px",
         zIndex: isAnimating ? 2000 : 1000,
-        cursor: isDragging ? "grabbing" : "grab",
+        cursor: isDragging ? "grabbing" : "pointer",
         transition: isAnimating ? "all 0.8s cubic-bezier(0.4, 0, 0.2, 1)" : "none",
+        pointerEvents: isAnimating ? "none" : "auto",
       }}
+      className={isAnimating ? "" : "animate-bob hover:scale-110 transition-transform"}
       onMouseDown={isAnimating ? undefined : handleMouseDown}
-    >
-      <div
-        className={`h-20 w-20 rounded-full shadow-lg transition-all ${
-          isAnimating ? "" : "animate-bob hover:animate-pulse-glow"
-        }`}
-        style={{
-          background: "transparent",
-          pointerEvents: isAnimating ? "none" : "auto",
-        }}
-      >
-        <img 
-          src={robotImage} 
-          alt="AI Tutor Robot" 
-          className="w-full h-full object-contain"
-        />
-      </div>
-    </div>
+    />
   );
 };
 
