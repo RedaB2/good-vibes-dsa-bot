@@ -6,13 +6,26 @@ interface DraggableMemberProps {
   quote: string;
   initialX: number;
   initialY: number;
+  storageKey: string;
 }
 
-const DraggableMember = ({ image, name, quote, initialX, initialY }: DraggableMemberProps) => {
-  const [position, setPosition] = useState({ x: initialX, y: initialY });
+const DraggableMember = ({ image, name, quote, initialX, initialY, storageKey }: DraggableMemberProps) => {
+  const [position, setPosition] = useState(() => {
+    const saved = localStorage.getItem(storageKey);
+    if (saved) {
+      return JSON.parse(saved);
+    }
+    return { x: initialX, y: initialY };
+  });
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const [showQuote, setShowQuote] = useState(false);
+
+  // Save position to localStorage whenever it changes
+  const handlePositionChange = (newPosition: { x: number; y: number }) => {
+    setPosition(newPosition);
+    localStorage.setItem(storageKey, JSON.stringify(newPosition));
+  };
 
   const handleMouseDown = (e: React.MouseEvent) => {
     setIsDragging(true);
@@ -24,7 +37,7 @@ const DraggableMember = ({ image, name, quote, initialX, initialY }: DraggableMe
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (isDragging) {
-      setPosition({
+      handlePositionChange({
         x: e.clientX - dragOffset.x,
         y: e.clientY - dragOffset.y,
       });
@@ -89,6 +102,7 @@ const TeamMembers = () => {
       quote: "Making algorithms accessible is our mission!",
       initialX: 150,
       initialY: window.innerHeight - 200,
+      storageKey: "member-reda-position",
     },
     {
       image: "/images/member2.jpg",
@@ -96,6 +110,7 @@ const TeamMembers = () => {
       quote: "Learning should be fun, not frustrating.",
       initialX: window.innerWidth / 2 - 200,
       initialY: window.innerHeight - 180,
+      storageKey: "member-rohit-position",
     },
     {
       image: null,
@@ -103,6 +118,7 @@ const TeamMembers = () => {
       quote: "Join us on this journey!",
       initialX: window.innerWidth - 300,
       initialY: window.innerHeight - 220,
+      storageKey: "member-jainam-position",
     },
   ];
 
