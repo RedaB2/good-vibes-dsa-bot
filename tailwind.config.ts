@@ -14,7 +14,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ["Meila Arabic", "Merienda", "Great Vibes", "Pacifico", "cursive"],
+        display: ["Meila Arabic Solid", "Merienda", "Great Vibes", "Pacifico", "cursive"],
         body: ["Inter", "Nunito", "system-ui", "sans-serif"],
       },
       colors: {
