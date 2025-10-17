@@ -41,7 +41,7 @@ const Index = () => {
           {/* Left: Topic Accordion - Hover sidebar when problem selected */}
           {currentProblem ? (
             <aside 
-              className={`fixed left-0 top-[88px] h-[calc(100vh-88px)] w-80 z-40 transition-transform duration-300 ${
+              className={`fixed left-0 top-[88px] h-[calc(100vh-88px)] w-64 z-40 transition-transform duration-300 ${
                 showSidebar ? 'translate-x-0' : '-translate-x-full'
               }`}
             >
