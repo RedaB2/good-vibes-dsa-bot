@@ -9,21 +9,12 @@ serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
   try {
-    const { messages, mode } = await req.json();
+    const { messages } = await req.json();
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
 
-    // System prompts for different modes
-    const systemPrompts = {
-      Explain: "You are a helpful DSA tutor. Explain concepts clearly and thoroughly with examples.",
-      Hint: "You are a DSA tutor who gives subtle hints. Guide the student without giving away the full solution. Ask probing questions.",
-      Socratic: "You are a Socratic DSA tutor. Ask thought-provoking questions to help students discover solutions themselves. Never directly give answers.",
-      Complexity: "You are a DSA tutor specializing in complexity analysis. Focus on time and space complexity, Big O notation, and performance optimization.",
-      Pseudocode: "You are a DSA tutor who explains solutions using pseudocode. Break down algorithms step-by-step in clear pseudocode format."
-    };
-
-    const systemPrompt = systemPrompts[mode as keyof typeof systemPrompts] || systemPrompts.Explain;
+    const systemPrompt = "You are a helpful DSA (Data Structures and Algorithms) tutor. Explain concepts clearly and thoroughly with examples. Help students understand LeetCode problems and algorithms.";
 
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",

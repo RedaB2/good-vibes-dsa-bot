@@ -1,11 +1,10 @@
 import { useState, useEffect, useRef } from "react";
-import { X, Send, Minimize2, Maximize2, HelpCircle, Lightbulb, MessageCircle, Code, Zap } from "lucide-react";
+import { X, Send, Minimize2, Maximize2, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
-import { Badge } from "@/components/ui/badge";
 
 interface Message {
   role: "user" | "assistant";
@@ -22,21 +21,10 @@ interface ChatPanelProps {
   onRobotPositionChange: (pos: { x: number; y: number }) => void;
 }
 
-const modes = [
-  { id: "Explain", icon: HelpCircle, label: "Explain" },
-  { id: "Hint", icon: Lightbulb, label: "Hint" },
-  { id: "Socratic", icon: MessageCircle, label: "Socratic" },
-  { id: "Complexity", icon: Zap, label: "Complexity" },
-  { id: "Pseudocode", icon: Code, label: "Pseudocode" },
-] as const;
-
-type Mode = typeof modes[number]["id"];
-
 const ChatPanel = ({ isOpen, onClose, selectedContext, problemId, initialInput, robotPosition, onRobotPositionChange }: ChatPanelProps) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [mode, setMode] = useState<Mode>("Explain");
   const [isMinimized, setIsMinimized] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
@@ -129,8 +117,7 @@ const ChatPanel = ({ isOpen, onClose, selectedContext, problemId, initialInput, 
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ 
-          messages: [...messages, userMessage],
-          mode 
+          messages: [...messages, userMessage]
         }),
       });
 
@@ -251,27 +238,6 @@ const ChatPanel = ({ isOpen, onClose, selectedContext, problemId, initialInput, 
 
       {!isMinimized && (
         <>
-          {/* Mode Selector */}
-          <div className="p-2 border-b border-border bg-muted/30 flex gap-1 flex-wrap">
-            {modes.map((m) => {
-              const Icon = m.icon;
-              return (
-                <Badge
-                  key={m.id}
-                  variant={mode === m.id ? "default" : "outline"}
-                  className={cn(
-                    "cursor-pointer transition-colors",
-                    mode === m.id && "bg-secondary text-secondary-foreground"
-                  )}
-                  onClick={() => setMode(m.id)}
-                >
-                  <Icon className="h-3 w-3 mr-1" />
-                  {m.label}
-                </Badge>
-              );
-            })}
-          </div>
-
           {/* Messages */}
           <ScrollArea className="flex-1 p-4" ref={scrollRef}>
             <div className="space-y-4">
