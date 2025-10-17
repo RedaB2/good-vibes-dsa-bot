@@ -5,6 +5,7 @@ import ProblemDetail from "@/components/ProblemDetail";
 import MissionPanel from "@/components/MissionPanel";
 import FloatingRobot from "@/components/FloatingRobot";
 import ChatPanel from "@/components/ChatPanel";
+import FoundersPopup from "@/components/FoundersPopup";
 import { problemDetails } from "@/data/problems";
 
 const Index = () => {
@@ -79,6 +80,9 @@ const Index = () => {
           )}
         </div>
       </main>
+
+      {/* Founders Popup */}
+      <FoundersPopup />
 
       {/* Floating Robot */}
       <FloatingRobot onClick={() => setIsChatOpen(true)} />

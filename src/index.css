@@ -159,3 +159,18 @@ All colors MUST be HSL.
     box-shadow: 0 0 40px hsl(0 0% 100% / 0.3), 0 8px 24px hsl(0 0% 100% / 0.15);
   }
 }
+
+.chalk-stroke {
+  animation: chalk-draw 0.8s ease-out;
+}
+
+@keyframes chalk-draw {
+  from {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 0;
+  }
+}

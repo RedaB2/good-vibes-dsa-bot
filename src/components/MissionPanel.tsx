@@ -20,18 +20,6 @@ const MissionPanel = () => {
           </p>
         </div>
       </div>
-
-      {/* Founders Video Placeholder */}
-      <div className="bg-card/50 backdrop-blur-sm rounded-xl shadow-md hover:shadow-lg transition-all p-6">
-        <h3 className="text-foreground text-xl font-semibold mb-4">Meet the Founders</h3>
-        <div className="aspect-video bg-muted/20 rounded-lg flex items-center justify-center">
-          <p className="text-muted-foreground text-center px-4">
-            YouTube video will be embedded here
-            <br />
-            <span className="text-xs">(Coming soon)</span>
-          </p>
-        </div>
-      </div>
     </div>
   );
 };
