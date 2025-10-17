@@ -8,6 +8,7 @@ import FloatingRobot from "@/components/FloatingRobot";
 import ChatPanel from "@/components/ChatPanel";
 import FoundersPopup from "@/components/FoundersPopup";
 import TeamMembers from "@/components/TeamMembers";
+import FloatingMusicPlayer from "@/components/FloatingMusicPlayer";
 import { problemDetails } from "@/data/problems";
 
 const Index = () => {
@@ -27,11 +28,25 @@ const Index = () => {
     // Default to bottom right
     return { x: window.innerWidth - 120, y: window.innerHeight - 120 };
   });
+
+  const [musicPlayerPosition, setMusicPlayerPosition] = useState(() => {
+    const saved = localStorage.getItem("music-player-position");
+    if (saved) {
+      return JSON.parse(saved);
+    }
+    // Default to bottom left
+    return { x: 20, y: window.innerHeight - 120 };
+  });
+
   const hideTimeoutRef = React.useRef<NodeJS.Timeout>();
 
   React.useEffect(() => {
     localStorage.setItem("robot-position", JSON.stringify(robotPosition));
   }, [robotPosition]);
+
+  React.useEffect(() => {
+    localStorage.setItem("music-player-position", JSON.stringify(musicPlayerPosition));
+  }, [musicPlayerPosition]);
 
   const currentProblem = selectedProblemId ? problemDetails[selectedProblemId] : null;
 
@@ -208,6 +223,12 @@ const Index = () => {
         position={robotPosition}
         onPositionChange={setRobotPosition}
         hasProblemSelected={!!currentProblem}
+      />
+
+      {/* Floating Music Player */}
+      <FloatingMusicPlayer 
+        position={musicPlayerPosition}
+        onPositionChange={setMusicPlayerPosition}
       />
 
       {/* Chat Panel */}
