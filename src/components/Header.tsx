@@ -10,7 +10,7 @@ const Header = () => {
         <img 
           src={logoImage} 
           alt="Good Vibes Only" 
-          className="absolute top-4 right-4 w-24 h-24 object-contain"
+          className="absolute top-4 right-4 w-16 h-16 object-contain"
         />
       </div>
     </header>
