@@ -62,8 +62,12 @@ const ChatPanel = ({ isOpen, onClose, selectedContext, problemId, initialInput, 
   }, [messages]);
 
   useEffect(() => {
-    if (initialInput && isOpen) {
-      setInput(initialInput);
+    if (isOpen) {
+      if (initialInput) {
+        setInput(initialInput);
+      } else {
+        setInput("");
+      }
     }
   }, [initialInput, isOpen]);
 
