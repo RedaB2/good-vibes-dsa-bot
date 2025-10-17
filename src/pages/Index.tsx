@@ -34,8 +34,8 @@ const Index = () => {
     if (saved) {
       return JSON.parse(saved);
     }
-    // Default to bottom left
-    return { x: 20, y: window.innerHeight - 120 };
+    // Default to top left
+    return { x: 20, y: 20 };
   });
 
   const hideTimeoutRef = React.useRef<NodeJS.Timeout>();
