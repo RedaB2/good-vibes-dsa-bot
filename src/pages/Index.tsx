@@ -135,8 +135,8 @@ const Index = () => {
           
           {/* Main cloud bubble */}
           <div className="relative bg-white rounded-[40px] px-8 py-6 shadow-2xl animate-scale-in">
-            <p className="text-2xl font-display text-primary whitespace-nowrap">
-              Let's learn with good vibes only
+            <p className="text-2xl font-medium text-primary whitespace-nowrap">
+              Let's learn with good vibes ✨ only
             </p>
           </div>
         </div>
