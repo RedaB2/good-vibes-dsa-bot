@@ -1,4 +1,5 @@
 import { useState } from "react";
+import React from "react";
 import Header from "@/components/Header";
 import TopicAccordion from "@/components/TopicAccordion";
 import ProblemDetail from "@/components/ProblemDetail";
@@ -13,6 +14,7 @@ const Index = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [selectedContext, setSelectedContext] = useState<string>();
   const [showSidebar, setShowSidebar] = useState(false);
+  const hideTimeoutRef = React.useRef<NodeJS.Timeout>();
 
   const currentProblem = selectedProblemId ? problemDetails[selectedProblemId] : null;
 
@@ -26,7 +28,27 @@ const Index = () => {
   const handleMouseMove = (e: React.MouseEvent) => {
     if (currentProblem) {
       // Show sidebar when mouse is within 50px of left edge
-      setShowSidebar(e.clientX < 50);
+      if (e.clientX < 50) {
+        setShowSidebar(true);
+        // Clear any pending hide timeout
+        if (hideTimeoutRef.current) {
+          clearTimeout(hideTimeoutRef.current);
+        }
+      }
+    }
+  };
+
+  const handleSidebarMouseLeave = () => {
+    // Add a delay before hiding
+    hideTimeoutRef.current = setTimeout(() => {
+      setShowSidebar(false);
+    }, 500); // 500ms delay
+  };
+
+  const handleSidebarMouseEnter = () => {
+    // Cancel hide when hovering over sidebar
+    if (hideTimeoutRef.current) {
+      clearTimeout(hideTimeoutRef.current);
     }
   };
 
@@ -44,6 +66,8 @@ const Index = () => {
               className={`fixed left-0 top-[88px] h-[calc(100vh-88px)] w-64 z-40 transition-transform duration-300 ${
                 showSidebar ? 'translate-x-0' : '-translate-x-full'
               }`}
+              onMouseEnter={handleSidebarMouseEnter}
+              onMouseLeave={handleSidebarMouseLeave}
             >
               <div className="h-full bg-background/95 backdrop-blur-md shadow-2xl">
                 <TopicAccordion
