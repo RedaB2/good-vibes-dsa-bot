@@ -41,10 +41,20 @@ const ChatPanel = ({ isOpen, onClose, selectedContext, problemId, initialInput, 
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const [isClosing, setIsClosing] = useState(false);
+  const [isOpening, setIsOpening] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   // Calculate chat position relative to robot
   const chatOffset = { x: -420, y: -620 }; // Position chat to the left and above robot
+
+  useEffect(() => {
+    if (isOpen) {
+      setIsOpening(true);
+      setTimeout(() => {
+        setIsOpening(false);
+      }, 300); // Match animation duration
+    }
+  }, [isOpen]);
 
   const handleClose = () => {
     setIsClosing(true);
@@ -129,8 +139,26 @@ const ChatPanel = ({ isOpen, onClose, selectedContext, problemId, initialInput, 
   const chatX = robotPosition.x + chatOffset.x;
   const chatY = robotPosition.y + chatOffset.y;
 
+  // Animation logic: start at scale 0 when opening, animate to scale 1
+  const scale = isClosing ? 0 : (isOpening ? 0 : 1);
+  const opacity = isClosing ? 0 : (isOpening ? 0 : 1);
+
+  // Use requestAnimationFrame to trigger animation after mount
+  useEffect(() => {
+    if (isOpening) {
+      requestAnimationFrame(() => {
+        const card = document.querySelector('[data-chat-panel]') as HTMLElement;
+        if (card) {
+          card.style.transform = 'scale(1)';
+          card.style.opacity = '1';
+        }
+      });
+    }
+  }, [isOpening]);
+
   return (
     <Card
+      data-chat-panel
       style={{
         position: "fixed",
         left: `${chatX}px`,
@@ -140,8 +168,8 @@ const ChatPanel = ({ isOpen, onClose, selectedContext, problemId, initialInput, 
         zIndex: 1001,
         transformOrigin: "bottom right",
         transition: "transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-out",
-        transform: isClosing ? "scale(0)" : "scale(1)",
-        opacity: isClosing ? 0 : 1,
+        transform: `scale(${scale})`,
+        opacity: opacity,
       }}
       className="shadow-2xl border-2 border-secondary/20 overflow-hidden flex flex-col"
     >
