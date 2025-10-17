@@ -6,6 +6,39 @@
 All colors MUST be HSL.
 */
 
+/* Custom Fonts */
+@font-face {
+  font-family: 'Meila Arabic';
+  src: url('/fonts/MeilaArabic-LineLight.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Meila Arabic';
+  src: url('/fonts/MeilaArabic-LineRegular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Meila Arabic';
+  src: url('/fonts/MeilaArabic-LineBold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Meila Arabic Solid';
+  src: url('/fonts/MeilaArabic-Solid.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   :root {
     /* Good Vibes DSA Theme - Dark Elegant */
