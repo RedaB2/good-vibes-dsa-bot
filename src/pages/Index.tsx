@@ -36,6 +36,9 @@ const Index = () => {
   const currentProblem = selectedProblemId ? problemDetails[selectedProblemId] : null;
 
   const handleProblemSelect = (problemId: string) => {
+    // Set problem immediately so UI updates right away
+    setSelectedProblemId(problemId);
+    
     // Start animation sequence
     setIsRobotAnimating(true);
     
@@ -47,7 +50,6 @@ const Index = () => {
     // Show "Let's learn!" after robot reaches center
     setTimeout(() => {
       setShowLetsLearn(true);
-      setSelectedProblemId(problemId);
     }, 800);
     
     // Move to bottom right corner
