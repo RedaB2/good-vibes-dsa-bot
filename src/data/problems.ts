@@ -2,6 +2,7 @@ export interface ProblemSummary {
   id: string;
   title: string;
   difficulty: "Easy" | "Medium";
+  description?: string;
 }
 
 export interface ProblemDetail extends ProblemSummary {
@@ -23,24 +24,24 @@ export const topics = [
 
 export const problemsByTopic: Record<string, ProblemSummary[]> = {
   Arrays: [
-    { id: "two-sum", title: "Two Sum", difficulty: "Easy" },
-    { id: "maximum-subarray", title: "Maximum Subarray (Kadane)", difficulty: "Medium" },
+    { id: "two-sum", title: "Two Sum", difficulty: "Easy", description: "Find two numbers in a list that add up to a target" },
+    { id: "maximum-subarray", title: "Maximum Subarray (Kadane)", difficulty: "Medium", description: "Find the consecutive numbers with the biggest sum" },
   ],
   Strings: [
-    { id: "valid-anagram", title: "Valid Anagram", difficulty: "Easy" },
-    { id: "longest-substring", title: "Longest Substring Without Repeating", difficulty: "Medium" },
+    { id: "valid-anagram", title: "Valid Anagram", difficulty: "Easy", description: "Check if two words use the same letters" },
+    { id: "longest-substring", title: "Longest Substring Without Repeating", difficulty: "Medium", description: "Find the longest part of text with no repeating letters" },
   ],
   "Linked Lists": [
-    { id: "reverse-linked-list", title: "Reverse Linked List", difficulty: "Easy" },
-    { id: "linked-list-cycle", title: "Linked List Cycle", difficulty: "Easy" },
+    { id: "reverse-linked-list", title: "Reverse Linked List", difficulty: "Easy", description: "Flip the order of items in a chain" },
+    { id: "linked-list-cycle", title: "Linked List Cycle", difficulty: "Easy", description: "Check if a chain of items loops back on itself" },
   ],
   Trees: [
-    { id: "level-order", title: "Binary Tree Level Order Traversal", difficulty: "Medium" },
-    { id: "lca-bst", title: "Lowest Common Ancestor in BST", difficulty: "Medium" },
+    { id: "level-order", title: "Binary Tree Level Order Traversal", difficulty: "Medium", description: "List all items in a tree, row by row" },
+    { id: "lca-bst", title: "Lowest Common Ancestor in BST", difficulty: "Medium", description: "Find the first shared parent of two items in a sorted tree" },
   ],
   Graphs: [
-    { id: "number-of-islands", title: "Number of Islands", difficulty: "Medium" },
-    { id: "course-schedule", title: "Course Schedule", difficulty: "Medium" },
+    { id: "number-of-islands", title: "Number of Islands", difficulty: "Medium", description: "Count separate land masses on a map grid" },
+    { id: "course-schedule", title: "Course Schedule", difficulty: "Medium", description: "Check if you can take all classes without conflicts" },
   ],
 };
 
