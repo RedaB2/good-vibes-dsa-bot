@@ -44,30 +44,10 @@ const DraggableMember = ({ image, name, quote, initialX, initialY }: DraggableMe
       onMouseLeave={handleMouseUp}
     >
       <div className="flex flex-col items-center gap-1 relative">
-        {/* Curved Chalk Arrow */}
-        <svg className="w-12 h-14" viewBox="0 0 100 120">
-          <defs>
-            <filter id={`chalk-${name}`}>
-              <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" />
-              <feDisplacementMap in="SourceGraphic" scale="1.5" />
-            </filter>
-          </defs>
-          <path
-            d="M 50 10 Q 30 35, 50 70 M 50 70 L 42 62 M 50 70 L 58 62"
-            stroke="currentColor"
-            strokeWidth="2"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            filter={`url(#chalk-${name})`}
-            className="text-primary/60"
-          />
-        </svg>
-
         {/* Member Name */}
         <div className="font-display text-sm text-white mb-1">{name}</div>
 
-          {/* Member Image */}
+        {/* Member Image */}
           {image ? (
             <div className="relative">
               <img
