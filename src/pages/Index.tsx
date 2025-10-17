@@ -13,6 +13,7 @@ const Index = () => {
   const [selectedProblemId, setSelectedProblemId] = useState<string | null>(null);
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [selectedContext, setSelectedContext] = useState<string>();
+  const [initialChatInput, setInitialChatInput] = useState<string>();
   const [showSidebar, setShowSidebar] = useState(false);
   const [isRobotAnimating, setIsRobotAnimating] = useState(false);
   const [showLetsLearn, setShowLetsLearn] = useState(false);
@@ -59,7 +60,7 @@ const Index = () => {
   };
 
   const handleHelpClick = (question: string) => {
-    setSelectedContext(question);
+    setInitialChatInput(question);
     setIsChatOpen(true);
   };
 
@@ -178,6 +179,7 @@ const Index = () => {
         onClose={() => setIsChatOpen(false)}
         selectedContext={selectedContext}
         problemId={selectedProblemId || undefined}
+        initialInput={initialChatInput}
       />
     </div>
   );

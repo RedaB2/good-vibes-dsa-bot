@@ -17,6 +17,7 @@ interface ChatPanelProps {
   onClose: () => void;
   selectedContext?: string;
   problemId?: string;
+  initialInput?: string;
 }
 
 const modes = [
@@ -29,7 +30,7 @@ const modes = [
 
 type Mode = typeof modes[number]["id"];
 
-const ChatPanel = ({ isOpen, onClose, selectedContext, problemId }: ChatPanelProps) => {
+const ChatPanel = ({ isOpen, onClose, selectedContext, problemId, initialInput }: ChatPanelProps) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -52,6 +53,12 @@ const ChatPanel = ({ isOpen, onClose, selectedContext, problemId }: ChatPanelPro
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages]);
+
+  useEffect(() => {
+    if (initialInput && isOpen) {
+      setInput(initialInput);
+    }
+  }, [initialInput, isOpen]);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if (e.button !== 0) return;
