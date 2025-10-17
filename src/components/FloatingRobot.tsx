@@ -5,20 +5,13 @@ interface FloatingRobotProps {
   onClick: () => void;
   isAnimating?: boolean;
   animationPosition?: { x: number; y: number };
+  position: { x: number; y: number };
+  onPositionChange: (pos: { x: number; y: number }) => void;
 }
 
-const FloatingRobot = ({ onClick, isAnimating = false, animationPosition }: FloatingRobotProps) => {
-  const [position, setPosition] = useState(() => {
-    const saved = localStorage.getItem("robot-position");
-    return saved ? JSON.parse(saved) : { x: window.innerWidth - 100, y: window.innerHeight - 100 };
-  });
-
+const FloatingRobot = ({ onClick, isAnimating = false, animationPosition, position, onPositionChange }: FloatingRobotProps) => {
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    localStorage.setItem("robot-position", JSON.stringify(position));
-  }, [position]);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if (e.button !== 0) return;
@@ -33,7 +26,7 @@ const FloatingRobot = ({ onClick, isAnimating = false, animationPosition }: Floa
     if (!isDragging) return;
     const newX = Math.max(0, Math.min(window.innerWidth - 80, e.clientX - dragOffset.x));
     const newY = Math.max(0, Math.min(window.innerHeight - 80, e.clientY - dragOffset.y));
-    setPosition({ x: newX, y: newY });
+    onPositionChange({ x: newX, y: newY });
   };
 
   const handleMouseUp = (e: MouseEvent) => {

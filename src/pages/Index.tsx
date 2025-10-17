@@ -18,7 +18,15 @@ const Index = () => {
   const [isRobotAnimating, setIsRobotAnimating] = useState(false);
   const [showLetsLearn, setShowLetsLearn] = useState(false);
   const [robotAnimationPosition, setRobotAnimationPosition] = useState<{ x: number; y: number } | undefined>();
+  const [robotPosition, setRobotPosition] = useState(() => {
+    const saved = localStorage.getItem("robot-position");
+    return saved ? JSON.parse(saved) : { x: window.innerWidth - 100, y: window.innerHeight - 100 };
+  });
   const hideTimeoutRef = React.useRef<NodeJS.Timeout>();
+
+  React.useEffect(() => {
+    localStorage.setItem("robot-position", JSON.stringify(robotPosition));
+  }, [robotPosition]);
 
   const currentProblem = selectedProblemId ? problemDetails[selectedProblemId] : null;
 
@@ -171,6 +179,8 @@ const Index = () => {
         onClick={() => setIsChatOpen(true)} 
         isAnimating={isRobotAnimating}
         animationPosition={robotAnimationPosition}
+        position={robotPosition}
+        onPositionChange={setRobotPosition}
       />
 
       {/* Chat Panel */}
@@ -180,6 +190,8 @@ const Index = () => {
         selectedContext={selectedContext}
         problemId={selectedProblemId || undefined}
         initialInput={initialChatInput}
+        robotPosition={robotPosition}
+        onRobotPositionChange={setRobotPosition}
       />
     </div>
   );

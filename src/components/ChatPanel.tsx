@@ -18,6 +18,8 @@ interface ChatPanelProps {
   selectedContext?: string;
   problemId?: string;
   initialInput?: string;
+  robotPosition: { x: number; y: number };
+  onRobotPositionChange: (pos: { x: number; y: number }) => void;
 }
 
 const modes = [
@@ -30,23 +32,18 @@ const modes = [
 
 type Mode = typeof modes[number]["id"];
 
-const ChatPanel = ({ isOpen, onClose, selectedContext, problemId, initialInput }: ChatPanelProps) => {
+const ChatPanel = ({ isOpen, onClose, selectedContext, problemId, initialInput, robotPosition, onRobotPositionChange }: ChatPanelProps) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [mode, setMode] = useState<Mode>("Explain");
   const [isMinimized, setIsMinimized] = useState(false);
-  const [position, setPosition] = useState(() => {
-    const saved = localStorage.getItem("chat-position");
-    return saved ? JSON.parse(saved) : { x: window.innerWidth - 450, y: 100 };
-  });
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    localStorage.setItem("chat-position", JSON.stringify(position));
-  }, [position]);
+  // Calculate chat position relative to robot
+  const chatOffset = { x: -420, y: -620 }; // Position chat to the left and above robot
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -63,17 +60,22 @@ const ChatPanel = ({ isOpen, onClose, selectedContext, problemId, initialInput }
   const handleMouseDown = (e: React.MouseEvent) => {
     if (e.button !== 0) return;
     setIsDragging(true);
+    const chatX = robotPosition.x + chatOffset.x;
+    const chatY = robotPosition.y + chatOffset.y;
     setDragOffset({
-      x: e.clientX - position.x,
-      y: e.clientY - position.y,
+      x: e.clientX - chatX,
+      y: e.clientY - chatY,
     });
   };
 
   const handleMouseMove = (e: MouseEvent) => {
     if (!isDragging) return;
-    const newX = Math.max(0, Math.min(window.innerWidth - 400, e.clientX - dragOffset.x));
-    const newY = Math.max(0, Math.min(window.innerHeight - 100, e.clientY - dragOffset.y));
-    setPosition({ x: newX, y: newY });
+    // Calculate new robot position based on drag
+    const chatWidth = isMinimized ? 300 : 400;
+    const chatHeight = isMinimized ? 60 : 600;
+    const newRobotX = Math.max(0, Math.min(window.innerWidth - 80, e.clientX - dragOffset.x - chatOffset.x));
+    const newRobotY = Math.max(0, Math.min(window.innerHeight - 80, e.clientY - dragOffset.y - chatOffset.y));
+    onRobotPositionChange({ x: newRobotX, y: newRobotY });
   };
 
   const handleMouseUp = () => {
@@ -115,17 +117,24 @@ const ChatPanel = ({ isOpen, onClose, selectedContext, problemId, initialInput }
 
   if (!isOpen) return null;
 
+  const chatX = robotPosition.x + chatOffset.x;
+  const chatY = robotPosition.y + chatOffset.y;
+
   return (
     <Card
       style={{
         position: "fixed",
-        left: `${position.x}px`,
-        top: `${position.y}px`,
+        left: `${chatX}px`,
+        top: `${chatY}px`,
         width: isMinimized ? "300px" : "400px",
         height: isMinimized ? "60px" : "600px",
         zIndex: 1001,
+        transformOrigin: "bottom right",
       }}
-      className="shadow-2xl border-2 border-secondary/20 overflow-hidden flex flex-col"
+      className={cn(
+        "shadow-2xl border-2 border-secondary/20 overflow-hidden flex flex-col transition-all duration-300",
+        isOpen ? "animate-scale-in" : "animate-scale-out"
+      )}
     >
       {/* Header */}
       <div
