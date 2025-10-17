@@ -7,6 +7,7 @@ import MissionPanel from "@/components/MissionPanel";
 import FloatingRobot from "@/components/FloatingRobot";
 import ChatPanel from "@/components/ChatPanel";
 import FoundersPopup from "@/components/FoundersPopup";
+import TeamMembers from "@/components/TeamMembers";
 import { problemDetails } from "@/data/problems";
 
 const Index = () => {
@@ -170,6 +171,9 @@ const Index = () => {
           )}
         </div>
       </main>
+
+      {/* Team Members Section */}
+      <TeamMembers />
 
       {/* Founders Popup */}
       <FoundersPopup />
