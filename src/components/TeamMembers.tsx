@@ -105,21 +105,21 @@ const TeamMembers = () => {
   const members = [
     {
       image: "/images/member1.jpg",
-      name: "Member 1",
+      name: "Reda",
       quote: "Making algorithms accessible is our mission!",
       initialX: 100,
       initialY: window.innerHeight - 150,
     },
     {
       image: "/images/member2.jpg",
-      name: "Member 2",
+      name: "Rohit",
       quote: "Learning should be fun, not frustrating.",
       initialX: 200,
       initialY: window.innerHeight - 180,
     },
     {
       image: null,
-      name: "Member 3",
+      name: "Jainam",
       quote: "Join us on this journey!",
       initialX: 300,
       initialY: window.innerHeight - 180,
