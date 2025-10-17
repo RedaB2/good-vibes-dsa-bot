@@ -58,6 +58,7 @@ const FloatingRobot = ({ onClick, isAnimating = false, animationPosition, positi
     <img 
       src={robotImage} 
       alt="AI Tutor Robot" 
+      draggable={false}
       style={{
         position: "fixed",
         left: `${displayPosition.x}px`,
@@ -68,9 +69,11 @@ const FloatingRobot = ({ onClick, isAnimating = false, animationPosition, positi
         cursor: isDragging ? "grabbing" : "pointer",
         transition: isAnimating ? "all 0.8s cubic-bezier(0.4, 0, 0.2, 1)" : "none",
         pointerEvents: isAnimating ? "none" : "auto",
+        userSelect: "none",
       }}
       className={isAnimating ? "" : "animate-bob hover:scale-110 transition-transform"}
       onMouseDown={isAnimating ? undefined : handleMouseDown}
+      onDragStart={(e) => e.preventDefault()}
     />
   );
 };
