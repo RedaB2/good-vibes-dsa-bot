@@ -207,6 +207,7 @@ const Index = () => {
         animationPosition={robotAnimationPosition}
         position={robotPosition}
         onPositionChange={setRobotPosition}
+        hasProblemSelected={!!currentProblem}
       />
 
       {/* Chat Panel */}

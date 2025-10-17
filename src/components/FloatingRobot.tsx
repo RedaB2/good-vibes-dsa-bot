@@ -7,9 +7,10 @@ interface FloatingRobotProps {
   animationPosition?: { x: number; y: number };
   position: { x: number; y: number };
   onPositionChange: (pos: { x: number; y: number }) => void;
+  hasProblemSelected?: boolean;
 }
 
-const FloatingRobot = ({ onClick, isAnimating = false, animationPosition, position, onPositionChange }: FloatingRobotProps) => {
+const FloatingRobot = ({ onClick, isAnimating = false, animationPosition, position, onPositionChange, hasProblemSelected = false }: FloatingRobotProps) => {
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
 
@@ -55,7 +56,38 @@ const FloatingRobot = ({ onClick, isAnimating = false, animationPosition, positi
   const displayPosition = isAnimating && animationPosition ? animationPosition : position;
 
   return (
-    <img 
+    <>
+      {/* Thought bubble - only when problem is selected */}
+      {hasProblemSelected && !isAnimating && (
+        <div
+          style={{
+            position: "fixed",
+            left: `${displayPosition.x - 240}px`,
+            top: `${displayPosition.y - 20}px`,
+            zIndex: 2499,
+          }}
+          className="animate-fade-in"
+        >
+          <div className="relative">
+            {/* Thought bubble circles */}
+            <div className="absolute -right-8 top-8">
+              <div className="w-2 h-2 bg-white rounded-full animate-scale-in" />
+            </div>
+            <div className="absolute -right-4 top-4">
+              <div className="w-3 h-3 bg-white rounded-full animate-scale-in" style={{ animationDelay: '0.1s' }} />
+            </div>
+            
+            {/* Main thought bubble */}
+            <div className="relative bg-white rounded-3xl px-4 py-3 shadow-xl animate-scale-in" style={{ animationDelay: '0.2s' }}>
+              <p className="text-sm text-primary whitespace-nowrap">
+                Have a solution? Ask me if it's correct! 💡
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <img 
       src={robotImage} 
       alt="AI Tutor Robot" 
       draggable={false}
@@ -72,9 +104,10 @@ const FloatingRobot = ({ onClick, isAnimating = false, animationPosition, positi
         userSelect: "none",
       }}
       className={isAnimating ? "" : "animate-bob hover:scale-110 transition-transform"}
-      onMouseDown={isAnimating ? undefined : handleMouseDown}
-      onDragStart={(e) => e.preventDefault()}
-    />
+        onMouseDown={isAnimating ? undefined : handleMouseDown}
+        onDragStart={(e) => e.preventDefault()}
+      />
+    </>
   );
 };
 
