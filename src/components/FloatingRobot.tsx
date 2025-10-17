@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
-import { Bot } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import robotImage from "@/assets/robot-chatbot.png";
 
 interface FloatingRobotProps {
   onClick: () => void;
+  isAnimating?: boolean;
+  animationPosition?: { x: number; y: number };
 }
 
-const FloatingRobot = ({ onClick }: FloatingRobotProps) => {
+const FloatingRobot = ({ onClick, isAnimating = false, animationPosition }: FloatingRobotProps) => {
   const [position, setPosition] = useState(() => {
     const saved = localStorage.getItem("robot-position");
     return saved ? JSON.parse(saved) : { x: window.innerWidth - 100, y: window.innerHeight - 100 };
@@ -58,24 +59,35 @@ const FloatingRobot = ({ onClick }: FloatingRobotProps) => {
     }
   }, [isDragging, dragOffset]);
 
+  const displayPosition = isAnimating && animationPosition ? animationPosition : position;
+
   return (
     <div
       style={{
         position: "fixed",
-        left: `${position.x}px`,
-        top: `${position.y}px`,
-        zIndex: 1000,
+        left: `${displayPosition.x}px`,
+        top: `${displayPosition.y}px`,
+        zIndex: isAnimating ? 2000 : 1000,
         cursor: isDragging ? "grabbing" : "grab",
+        transition: isAnimating ? "all 0.8s cubic-bezier(0.4, 0, 0.2, 1)" : "none",
       }}
-      onMouseDown={handleMouseDown}
+      onMouseDown={isAnimating ? undefined : handleMouseDown}
     >
-      <Button
-        size="lg"
-        className="h-20 w-20 rounded-full bg-secondary hover:bg-secondary/90 text-secondary-foreground shadow-lg animate-bob hover:animate-pulse-glow transition-all"
-        aria-label="Open AI Tutor"
+      <div
+        className={`h-20 w-20 rounded-full shadow-lg transition-all ${
+          isAnimating ? "" : "animate-bob hover:animate-pulse-glow"
+        }`}
+        style={{
+          background: "transparent",
+          pointerEvents: isAnimating ? "none" : "auto",
+        }}
       >
-        <Bot className="h-10 w-10" />
-      </Button>
+        <img 
+          src={robotImage} 
+          alt="AI Tutor Robot" 
+          className="w-full h-full object-contain"
+        />
+      </div>
     </div>
   );
 };

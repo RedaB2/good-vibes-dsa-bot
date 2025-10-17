@@ -14,9 +14,43 @@ const Index = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [selectedContext, setSelectedContext] = useState<string>();
   const [showSidebar, setShowSidebar] = useState(false);
+  const [isRobotAnimating, setIsRobotAnimating] = useState(false);
+  const [showLetsLearn, setShowLetsLearn] = useState(false);
+  const [robotAnimationPosition, setRobotAnimationPosition] = useState<{ x: number; y: number } | undefined>();
   const hideTimeoutRef = React.useRef<NodeJS.Timeout>();
 
   const currentProblem = selectedProblemId ? problemDetails[selectedProblemId] : null;
+
+  const handleProblemSelect = (problemId: string) => {
+    // Start animation sequence
+    setIsRobotAnimating(true);
+    
+    // Move to center
+    const centerX = window.innerWidth / 2 - 50;
+    const centerY = window.innerHeight / 2 - 50;
+    setRobotAnimationPosition({ x: centerX, y: centerY });
+    
+    // Show "Let's learn!" after robot reaches center
+    setTimeout(() => {
+      setShowLetsLearn(true);
+      setSelectedProblemId(problemId);
+    }, 800);
+    
+    // Move to corner and open chat
+    setTimeout(() => {
+      setShowLetsLearn(false);
+      const cornerX = window.innerWidth - 120;
+      const cornerY = 100;
+      setRobotAnimationPosition({ x: cornerX, y: cornerY });
+    }, 2300);
+    
+    // End animation
+    setTimeout(() => {
+      setIsRobotAnimating(false);
+      setRobotAnimationPosition(undefined);
+      setIsChatOpen(true);
+    }, 3100);
+  };
 
   const handleTextSelect = (text: string) => {
     setSelectedContext(text);
@@ -54,6 +88,23 @@ const Index = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-background" onMouseMove={handleMouseMove}>
+      {/* Backdrop blur overlay during animation */}
+      {isRobotAnimating && (
+        <div 
+          className="fixed inset-0 bg-background/80 backdrop-blur-md z-[1500] animate-fade-in"
+          style={{ transition: "all 0.5s ease-in-out" }}
+        />
+      )}
+      
+      {/* "Let's learn!" message */}
+      {showLetsLearn && (
+        <div className="fixed inset-0 z-[1900] flex items-center justify-center pointer-events-none">
+          <h2 className="text-6xl font-display text-secondary animate-scale-in drop-shadow-2xl">
+            Let's learn!
+          </h2>
+        </div>
+      )}
+
       <Header />
 
       <main className="container mx-auto px-4 py-6 flex-1 relative">
@@ -71,7 +122,7 @@ const Index = () => {
             >
               <div className="h-full bg-background/95 backdrop-blur-md shadow-2xl">
                 <TopicAccordion
-                  onProblemSelect={setSelectedProblemId}
+                  onProblemSelect={handleProblemSelect}
                   selectedProblemId={selectedProblemId}
                 />
               </div>
@@ -79,7 +130,7 @@ const Index = () => {
           ) : (
             <aside className="w-full">
               <TopicAccordion
-                onProblemSelect={setSelectedProblemId}
+                onProblemSelect={handleProblemSelect}
                 selectedProblemId={selectedProblemId}
               />
             </aside>
@@ -109,7 +160,11 @@ const Index = () => {
       <FoundersPopup />
 
       {/* Floating Robot */}
-      <FloatingRobot onClick={() => setIsChatOpen(true)} />
+      <FloatingRobot 
+        onClick={() => setIsChatOpen(true)} 
+        isAnimating={isRobotAnimating}
+        animationPosition={robotAnimationPosition}
+      />
 
       {/* Chat Panel */}
       <ChatPanel
