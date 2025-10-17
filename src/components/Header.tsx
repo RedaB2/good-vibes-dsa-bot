@@ -4,7 +4,7 @@ const Header = () => {
   return (
     <header className="bg-card/50 backdrop-blur-sm shadow-md">
       <div className="container mx-auto px-4 py-6 relative">
-        <h1 className="text-center text-5xl font-display text-white animate-float">
+        <h1 className="text-center text-5xl font-display text-white">
           Newton
         </h1>
         <img 
