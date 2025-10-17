@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Play, Pause, Volume2 } from "lucide-react";
+import { Play, Pause, Volume2, SkipForward } from "lucide-react";
 
 interface FloatingMusicPlayerProps {
   position: { x: number; y: number };
@@ -11,21 +11,21 @@ const FloatingMusicPlayer = ({ position, onPositionChange }: FloatingMusicPlayer
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrack, setCurrentTrack] = useState(0);
-  const audioRef = useRef<HTMLAudioElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
 
-  // Lofi/white noise tracks (using free music from various sources)
+  // YouTube lofi/study music videos (audio only playback)
   const tracks = [
     {
-      name: "Lofi Study",
-      url: "https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3"
+      name: "Lofi Hip Hop Radio",
+      videoId: "jfKfPfyJRdk" // Lofi Girl - beats to relax/study to
     },
     {
-      name: "Chill Vibes",
-      url: "https://cdn.pixabay.com/audio/2022/08/02/audio_0625c1539c.mp3"
+      name: "Chill Lofi Beats",
+      videoId: "5qap5aO4i9A" // ChilledCow lofi hip hop radio
     },
     {
-      name: "Focus Flow",
-      url: "https://cdn.pixabay.com/audio/2023/09/22/audio_24759e4045.mp3"
+      name: "Study & Focus",
+      videoId: "lTRiuFIWV54" // Lofi hip hop mix
     }
   ];
 
@@ -63,12 +63,10 @@ const FloatingMusicPlayer = ({ position, onPositionChange }: FloatingMusicPlayer
   }, [isDragging, dragOffset]);
 
   const togglePlay = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current.play();
-      }
+    if (iframeRef.current) {
+      const iframe = iframeRef.current;
+      const message = isPlaying ? '{"event":"command","func":"pauseVideo","args":""}' : '{"event":"command","func":"playVideo","args":""}';
+      iframe.contentWindow?.postMessage(message, '*');
       setIsPlaying(!isPlaying);
     }
   };
@@ -77,18 +75,7 @@ const FloatingMusicPlayer = ({ position, onPositionChange }: FloatingMusicPlayer
     const next = (currentTrack + 1) % tracks.length;
     setCurrentTrack(next);
     setIsPlaying(false);
-    if (audioRef.current) {
-      audioRef.current.load();
-    }
   };
-
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (audio) {
-      audio.addEventListener('ended', nextTrack);
-      return () => audio.removeEventListener('ended', nextTrack);
-    }
-  }, [currentTrack]);
 
   return (
     <div
@@ -103,9 +90,14 @@ const FloatingMusicPlayer = ({ position, onPositionChange }: FloatingMusicPlayer
       onMouseDown={handleMouseDown}
       className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg p-3 min-w-[200px] animate-fade-in hover:shadow-xl transition-shadow"
     >
-      <audio ref={audioRef} loop>
-        <source src={tracks[currentTrack].url} type="audio/mpeg" />
-      </audio>
+      {/* Hidden YouTube iframe for audio playback */}
+      <iframe
+        ref={iframeRef}
+        style={{ display: 'none' }}
+        src={`https://www.youtube.com/embed/${tracks[currentTrack].videoId}?enablejsapi=1&autoplay=0&controls=0`}
+        allow="autoplay"
+        title="Background Music"
+      />
 
       <div className="flex items-center gap-3">
         <button
@@ -133,9 +125,9 @@ const FloatingMusicPlayer = ({ position, onPositionChange }: FloatingMusicPlayer
             e.stopPropagation();
             nextTrack();
           }}
-          className="text-xs text-primary hover:text-primary/80 transition-colors px-2 py-1 rounded-lg hover:bg-primary/10"
+          className="text-primary hover:text-primary/80 transition-colors p-2 rounded-lg hover:bg-primary/10"
         >
-          Next
+          <SkipForward size={18} />
         </button>
       </div>
     </div>
