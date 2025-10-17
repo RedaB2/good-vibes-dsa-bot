@@ -58,6 +58,11 @@ const Index = () => {
     }
   };
 
+  const handleHelpClick = (question: string) => {
+    setSelectedContext(question);
+    setIsChatOpen(true);
+  };
+
   const handleMouseMove = (e: React.MouseEvent) => {
     if (currentProblem) {
       // Show sidebar when mouse is within 50px of left edge
@@ -143,6 +148,7 @@ const Index = () => {
                 problem={currentProblem} 
                 onTextSelect={handleTextSelect}
                 onClose={() => setSelectedProblemId(null)}
+                onHelpClick={handleHelpClick}
               />
             </section>
           )}

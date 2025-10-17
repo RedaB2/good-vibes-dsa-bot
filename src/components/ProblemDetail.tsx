@@ -2,16 +2,17 @@ import { useState } from "react";
 import { ProblemDetail as ProblemDetailType } from "@/data/problems";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, ChevronUp, Lightbulb, CheckCircle2, X } from "lucide-react";
+import { ChevronDown, ChevronUp, Lightbulb, CheckCircle2, X, HelpCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface ProblemDetailProps {
   problem: ProblemDetailType;
   onTextSelect?: (text: string) => void;
   onClose?: () => void;
+  onHelpClick?: (question: string) => void;
 }
 
-const ProblemDetail = ({ problem, onTextSelect, onClose }: ProblemDetailProps) => {
+const ProblemDetail = ({ problem, onTextSelect, onClose, onHelpClick }: ProblemDetailProps) => {
   const [visibleHints, setVisibleHints] = useState<number>(0);
   const [showSolution, setShowSolution] = useState(false);
 
@@ -56,13 +57,31 @@ const ProblemDetail = ({ problem, onTextSelect, onClose }: ProblemDetailProps) =
         <div className="space-y-6 p-6">
           {/* Problem Statement */}
           <section>
-            <h3 className="text-lg font-semibold mb-2 text-foreground">Problem Statement</h3>
+            <div className="flex items-center gap-2 mb-2">
+              <h3 className="text-lg font-semibold text-foreground">Problem Statement</h3>
+              <button
+                onClick={() => onHelpClick?.("What does 'Problem Statement' mean in DSA?")}
+                className="text-muted-foreground hover:text-foreground transition-colors"
+                aria-label="Learn about Problem Statement"
+              >
+                <HelpCircle className="h-4 w-4" />
+              </button>
+            </div>
             <p className="text-foreground leading-relaxed">{problem.statement}</p>
           </section>
 
           {/* Constraints */}
           <section>
-            <h3 className="text-lg font-semibold mb-2 text-foreground">Constraints</h3>
+            <div className="flex items-center gap-2 mb-2">
+              <h3 className="text-lg font-semibold text-foreground">Constraints</h3>
+              <button
+                onClick={() => onHelpClick?.("What does 'Constraints' mean in DSA?")}
+                className="text-muted-foreground hover:text-foreground transition-colors"
+                aria-label="Learn about Constraints"
+              >
+                <HelpCircle className="h-4 w-4" />
+              </button>
+            </div>
             <ul className="list-disc list-inside space-y-1 text-muted-foreground">
               {problem.constraints.map((constraint, idx) => (
                 <li key={idx}>{constraint}</li>
@@ -72,7 +91,16 @@ const ProblemDetail = ({ problem, onTextSelect, onClose }: ProblemDetailProps) =
 
           {/* Examples */}
           <section>
-            <h3 className="text-lg font-semibold mb-2 text-foreground">Examples</h3>
+            <div className="flex items-center gap-2 mb-2">
+              <h3 className="text-lg font-semibold text-foreground">Examples</h3>
+              <button
+                onClick={() => onHelpClick?.("What are 'Examples' in DSA problems?")}
+                className="text-muted-foreground hover:text-foreground transition-colors"
+                aria-label="Learn about Examples"
+              >
+                <HelpCircle className="h-4 w-4" />
+              </button>
+            </div>
             <div className="space-y-3">
               {problem.examples.map((example, idx) => (
                 <div key={idx} className="bg-muted/30 rounded-lg p-4 font-mono text-sm">
@@ -90,10 +118,19 @@ const ProblemDetail = ({ problem, onTextSelect, onClose }: ProblemDetailProps) =
           {/* Hints */}
           <section>
             <div className="flex items-center justify-between mb-3">
-              <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
-                <Lightbulb className="h-5 w-5 text-warning" />
-                Hints
-              </h3>
+              <div className="flex items-center gap-2">
+                <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
+                  <Lightbulb className="h-5 w-5 text-warning" />
+                  Hints
+                </h3>
+                <button
+                  onClick={() => onHelpClick?.("What are 'Hints' for in DSA problems?")}
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                  aria-label="Learn about Hints"
+                >
+                  <HelpCircle className="h-4 w-4" />
+                </button>
+              </div>
               {visibleHints < problem.hints.length && (
                 <Button
                   variant="secondary"
