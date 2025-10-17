@@ -107,7 +107,7 @@ const TeamMembers = () => {
     {
       image: "/images/member2.jpg",
       name: "Rohit",
-      quote: "Learning should be fun, not frustrating.",
+      quote: "Until death, all defeat is psychological.",
       initialX: window.innerWidth / 2 - 200,
       initialY: window.innerHeight - 180,
       storageKey: "member-rohit-position",
