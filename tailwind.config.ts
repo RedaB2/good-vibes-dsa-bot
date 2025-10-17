@@ -14,7 +14,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ["Great Vibes", "Pacifico", "cursive"],
+        display: ["Merienda", "Great Vibes", "Pacifico", "cursive"],
         body: ["Inter", "Nunito", "system-ui", "sans-serif"],
       },
       colors: {
