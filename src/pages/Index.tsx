@@ -40,7 +40,11 @@ const Index = () => {
           {/* Center: Problem Detail - Only shows when problem selected */}
           {currentProblem && (
             <section className="md:col-span-6">
-              <ProblemDetail problem={currentProblem} onTextSelect={handleTextSelect} />
+              <ProblemDetail 
+                problem={currentProblem} 
+                onTextSelect={handleTextSelect}
+                onClose={() => setSelectedProblemId(null)}
+              />
             </section>
           )}
 

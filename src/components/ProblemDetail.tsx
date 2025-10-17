@@ -2,16 +2,16 @@ import { useState } from "react";
 import { ProblemDetail as ProblemDetailType } from "@/data/problems";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChevronDown, ChevronUp, Lightbulb, CheckCircle2 } from "lucide-react";
+import { ChevronDown, ChevronUp, Lightbulb, CheckCircle2, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface ProblemDetailProps {
   problem: ProblemDetailType;
   onTextSelect?: (text: string) => void;
+  onClose?: () => void;
 }
 
-const ProblemDetail = ({ problem, onTextSelect }: ProblemDetailProps) => {
+const ProblemDetail = ({ problem, onTextSelect, onClose }: ProblemDetailProps) => {
   const [visibleHints, setVisibleHints] = useState<number>(0);
   const [showSolution, setShowSolution] = useState(false);
 
@@ -26,8 +26,15 @@ const ProblemDetail = ({ problem, onTextSelect }: ProblemDetailProps) => {
   return (
     <div className="h-full overflow-y-auto p-4" onMouseUp={handleMouseUp}>
       <div className="bg-card/50 backdrop-blur-sm rounded-xl shadow-md hover:shadow-lg transition-all">
-        <div className="p-6 bg-muted/10 rounded-t-xl">
-          <div className="flex items-start justify-between gap-4">
+        <div className="p-6 bg-muted/10 rounded-t-xl relative">
+          <button
+            onClick={onClose}
+            className="absolute top-4 right-4 p-2 rounded-lg hover:bg-muted/50 transition-colors group"
+            aria-label="Close problem"
+          >
+            <X className="h-5 w-5 text-muted-foreground group-hover:text-foreground" />
+          </button>
+          <div className="flex items-start justify-between gap-4 pr-12">
             <h2 className="text-2xl font-semibold text-foreground">
               {problem.title}
             </h2>
