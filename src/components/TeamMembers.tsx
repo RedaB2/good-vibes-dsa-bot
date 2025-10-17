@@ -37,7 +37,7 @@ const DraggableMember = ({ image, name, quote, initialX, initialY }: DraggableMe
 
   return (
     <div
-      className="fixed z-10 opacity-70 hover:opacity-100 transition-opacity"
+      className="fixed z-[2000] opacity-70 hover:opacity-100 transition-opacity"
       style={{ left: `${position.x}px`, top: `${position.y}px` }}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}

@@ -173,7 +173,7 @@ const Index = () => {
       </main>
 
       {/* Team Members - Independent draggable elements */}
-      {!currentProblem && <TeamMembers />}
+      <TeamMembers />
 
       {/* Founders Popup */}
       <FoundersPopup />
