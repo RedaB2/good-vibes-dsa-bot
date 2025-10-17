@@ -60,8 +60,7 @@ const TeamMembers = () => {
                 src={member.image}
                 alt={member.name}
                 onClick={() => setActiveQuote(activeQuote === index ? null : index)}
-                className="w-20 h-20 object-cover cursor-pointer hover:opacity-80 transition-opacity shadow-lg"
-                style={{ clipPath: "none" }}
+                className="w-20 h-20 object-cover cursor-pointer hover:opacity-80 transition-opacity"
               />
               
               {/* Quote Bubble */}
@@ -81,7 +80,7 @@ const TeamMembers = () => {
           ) : (
             <div 
               onClick={() => setActiveQuote(activeQuote === index ? null : index)}
-              className="w-20 h-20 bg-muted/20 border border-dashed border-primary/15 flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity relative"
+              className="w-20 h-20 bg-muted/10 flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity relative"
             >
               <span className="text-muted-foreground text-xs">Soon</span>
               
