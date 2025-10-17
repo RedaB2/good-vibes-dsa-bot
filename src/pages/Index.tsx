@@ -171,9 +171,9 @@ const Index = () => {
           )}
         </div>
 
-        {/* Team Members Section - Below content in same viewport */}
+        {/* Team Members Section - Subtle at bottom */}
         {!currentProblem && (
-          <div className="mt-6 pb-4">
+          <div className="mt-4">
             <TeamMembers />
           </div>
         )}
