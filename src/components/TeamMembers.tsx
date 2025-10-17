@@ -87,22 +87,22 @@ const TeamMembers = () => {
       image: "/images/member1.jpg",
       name: "Reda",
       quote: "Making algorithms accessible is our mission!",
-      initialX: 100,
-      initialY: window.innerHeight - 150,
+      initialX: 150,
+      initialY: window.innerHeight - 200,
     },
     {
       image: "/images/member2.jpg",
       name: "Rohit",
       quote: "Learning should be fun, not frustrating.",
-      initialX: 200,
+      initialX: window.innerWidth / 2 - 200,
       initialY: window.innerHeight - 180,
     },
     {
       image: null,
       name: "Jainam",
       quote: "Join us on this journey!",
-      initialX: 300,
-      initialY: window.innerHeight - 180,
+      initialX: window.innerWidth - 300,
+      initialY: window.innerHeight - 220,
     },
   ];
 
