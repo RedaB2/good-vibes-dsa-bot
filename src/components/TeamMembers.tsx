@@ -75,7 +75,7 @@ const DraggableMember = ({ image, name, quote, initialX, initialY }: DraggableMe
                 alt={name}
                 onMouseDown={handleMouseDown}
                 onClick={() => setShowQuote(!showQuote)}
-                className="w-28 h-28 object-cover cursor-move select-none"
+                className="max-w-[120px] max-h-[120px] object-contain cursor-move select-none"
                 draggable={false}
               />
 
