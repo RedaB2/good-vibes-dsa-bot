@@ -15,17 +15,73 @@ interface ProblemDetailProps {
 const ProblemDetail = ({ problem, onTextSelect, onClose, onHelpClick }: ProblemDetailProps) => {
   const [visibleHints, setVisibleHints] = useState<number>(0);
   const [showSolution, setShowSolution] = useState(false);
+  const [selectionPopup, setSelectionPopup] = useState<{
+    text: string;
+    x: number;
+    y: number;
+  } | null>(null);
 
   const handleMouseUp = () => {
     const selection = window.getSelection();
     const text = selection?.toString().trim();
     if (text && text.length > 0 && text.length <= 800) {
-      onTextSelect?.(text);
+      const range = selection?.getRangeAt(0);
+      const rect = range?.getBoundingClientRect();
+      if (rect) {
+        setSelectionPopup({
+          text,
+          x: rect.left + rect.width / 2,
+          y: rect.top - 10,
+        });
+      }
+    } else {
+      setSelectionPopup(null);
     }
   };
 
+  const handleAskNewton = () => {
+    if (selectionPopup) {
+      onTextSelect?.(selectionPopup.text);
+      setSelectionPopup(null);
+      // Clear selection
+      window.getSelection()?.removeAllRanges();
+    }
+  };
+
+  // Close popup when clicking outside
+  const handleClickOutside = () => {
+    setSelectionPopup(null);
+  };
+
   return (
-    <div className="h-full overflow-y-auto p-4" onMouseUp={handleMouseUp}>
+    <>
+      {/* Selection Popup */}
+      {selectionPopup && (
+        <>
+          <div 
+            className="fixed inset-0 z-40"
+            onClick={handleClickOutside}
+          />
+          <div
+            className="fixed z-50 animate-scale-in"
+            style={{
+              left: `${selectionPopup.x}px`,
+              top: `${selectionPopup.y}px`,
+              transform: "translate(-50%, -100%)",
+            }}
+          >
+            <Button
+              onClick={handleAskNewton}
+              className="bg-secondary hover:bg-secondary/90 text-secondary-foreground shadow-lg"
+              size="sm"
+            >
+              Ask Newton
+            </Button>
+          </div>
+        </>
+      )}
+
+      <div className="h-full overflow-y-auto p-4" onMouseUp={handleMouseUp}>
       <div className="bg-card/50 backdrop-blur-sm rounded-xl shadow-md hover:shadow-lg transition-all">
         <div className="p-6 bg-muted/10 rounded-t-xl relative">
           <button
@@ -191,7 +247,8 @@ const ProblemDetail = ({ problem, onTextSelect, onClose, onHelpClick }: ProblemD
           </section>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 
