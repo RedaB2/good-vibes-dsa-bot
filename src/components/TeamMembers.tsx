@@ -108,7 +108,7 @@ const TeamMembers = () => {
       name: "Member 1",
       quote: "Making algorithms accessible is our mission!",
       initialX: 100,
-      initialY: window.innerHeight - 180,
+      initialY: window.innerHeight - 150,
     },
     {
       image: "/images/member2.jpg",
