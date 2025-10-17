@@ -174,7 +174,7 @@ const FoundersPopup = () => {
                   Meet the Founders ✨
                 </h2>
                 <p className="text-foreground/80">
-                  Learn why we created Newton and our mission to make DSA learning accessible to everyone
+                  Learn why we created FlowState and our mission to make DSA learning accessible to everyone
                 </p>
               </div>
 

@@ -39,7 +39,7 @@ const ProblemDetail = ({ problem, onTextSelect, onClose, onHelpClick }: ProblemD
     }
   };
 
-  const handleAskNewton = () => {
+  const handleAskFlowState = () => {
     if (selectionPopup) {
       onTextSelect?.(selectionPopup.text);
       setSelectionPopup(null);
@@ -71,11 +71,11 @@ const ProblemDetail = ({ problem, onTextSelect, onClose, onHelpClick }: ProblemD
             }}
           >
             <Button
-              onClick={handleAskNewton}
+              onClick={handleAskFlowState}
               className="bg-secondary hover:bg-secondary/90 text-secondary-foreground shadow-lg"
               size="sm"
             >
-              Ask Newton
+              Ask FlowState
             </Button>
           </div>
         </>
