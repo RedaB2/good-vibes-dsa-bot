@@ -178,13 +178,18 @@ const FoundersPopup = () => {
                 </p>
               </div>
 
-              {/* Video placeholder */}
-              <div className="aspect-video bg-background rounded-xl flex items-center justify-center shadow-lg">
-                <p className="text-muted-foreground text-center px-4">
-                  YouTube video will be embedded here
-                  <br />
-                  <span className="text-xs">(Coming soon)</span>
-                </p>
+              {/* YouTube Video */}
+              <div className="aspect-video bg-background rounded-xl overflow-hidden shadow-lg">
+                <iframe
+                  width="100%"
+                  height="100%"
+                  src="https://www.youtube.com/embed/2UoCvreLyaI"
+                  title="Meet the Founders"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="w-full h-full"
+                ></iframe>
               </div>
 
               <div className="mt-6 text-center">
