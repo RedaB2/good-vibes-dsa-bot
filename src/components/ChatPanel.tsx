@@ -40,10 +40,19 @@ const ChatPanel = ({ isOpen, onClose, selectedContext, problemId, initialInput, 
   const [isMinimized, setIsMinimized] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const [isClosing, setIsClosing] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   // Calculate chat position relative to robot
   const chatOffset = { x: -420, y: -620 }; // Position chat to the left and above robot
+
+  const handleClose = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      setIsClosing(false);
+      onClose();
+    }, 300); // Match animation duration
+  };
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -115,7 +124,7 @@ const ChatPanel = ({ isOpen, onClose, selectedContext, problemId, initialInput, 
     }, 1000);
   };
 
-  if (!isOpen) return null;
+  if (!isOpen && !isClosing) return null;
 
   const chatX = robotPosition.x + chatOffset.x;
   const chatY = robotPosition.y + chatOffset.y;
@@ -130,11 +139,11 @@ const ChatPanel = ({ isOpen, onClose, selectedContext, problemId, initialInput, 
         height: isMinimized ? "60px" : "600px",
         zIndex: 1001,
         transformOrigin: "bottom right",
+        transition: "transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-out",
+        transform: isClosing ? "scale(0)" : "scale(1)",
+        opacity: isClosing ? 0 : 1,
       }}
-      className={cn(
-        "shadow-2xl border-2 border-secondary/20 overflow-hidden flex flex-col transition-all duration-300",
-        isOpen ? "animate-scale-in" : "animate-scale-out"
-      )}
+      className="shadow-2xl border-2 border-secondary/20 overflow-hidden flex flex-col"
     >
       {/* Header */}
       <div
@@ -157,7 +166,7 @@ const ChatPanel = ({ isOpen, onClose, selectedContext, problemId, initialInput, 
           <Button
             size="icon"
             variant="ghost"
-            onClick={onClose}
+            onClick={handleClose}
             className="h-8 w-8 hover:bg-secondary-foreground/20"
           >
             <X className="h-4 w-4" />
