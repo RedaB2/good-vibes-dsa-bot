@@ -116,13 +116,29 @@ const Index = () => {
         />
       )}
       
-      {/* "Let's learn!" message */}
+      {/* Thought bubble message */}
       {showLetsLearn && (
-        <div className="fixed inset-0 z-[1900] flex flex-col items-center justify-center pointer-events-none gap-4">
-          <div style={{ height: "80px" }} /> {/* Space for robot */}
-          <h2 className="text-6xl font-display text-white animate-scale-in drop-shadow-2xl">
-            Let's learn!
-          </h2>
+        <div 
+          className="fixed z-[1900] pointer-events-none"
+          style={{
+            left: `${(window.innerWidth / 2) + 60}px`,
+            top: `${(window.innerHeight / 2) - 120}px`,
+          }}
+        >
+          {/* Thought bubble circles */}
+          <div className="absolute -bottom-8 -left-6">
+            <div className="w-3 h-3 bg-white rounded-full animate-scale-in" style={{ animationDelay: '0.1s' }} />
+          </div>
+          <div className="absolute -bottom-4 -left-3">
+            <div className="w-2 h-2 bg-white rounded-full animate-scale-in" style={{ animationDelay: '0.2s' }} />
+          </div>
+          
+          {/* Main cloud bubble */}
+          <div className="relative bg-white rounded-[40px] px-8 py-6 shadow-2xl animate-scale-in">
+            <p className="text-2xl font-display text-primary whitespace-nowrap">
+              Let's learn with good vibes only
+            </p>
+          </div>
         </div>
       )}
 
