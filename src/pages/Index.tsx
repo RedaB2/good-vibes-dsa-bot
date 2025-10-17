@@ -26,28 +26,26 @@ const Index = () => {
       <Header />
 
       <main className="container mx-auto px-4 py-6 flex-1">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 h-[calc(100vh-200px)]">
+        <div className={`grid grid-cols-1 gap-6 h-[calc(100vh-200px)] ${
+          currentProblem ? 'md:grid-cols-12' : 'md:grid-cols-2'
+        }`}>
           {/* Left: Topic Accordion */}
-          <aside className="md:col-span-3">
+          <aside className={currentProblem ? 'md:col-span-3' : 'md:col-span-1'}>
             <TopicAccordion
               onProblemSelect={setSelectedProblemId}
               selectedProblemId={selectedProblemId}
             />
           </aside>
 
-          {/* Center: Problem Detail */}
-          <section className="md:col-span-6">
-            {currentProblem ? (
+          {/* Center: Problem Detail - Only shows when problem selected */}
+          {currentProblem && (
+            <section className="md:col-span-6">
               <ProblemDetail problem={currentProblem} onTextSelect={handleTextSelect} />
-            ) : (
-              <div className="h-full flex items-center justify-center text-muted-foreground">
-                Select a problem to get started
-              </div>
-            )}
-          </section>
+            </section>
+          )}
 
           {/* Right: Mission Panel */}
-          <aside className="md:col-span-3">
+          <aside className={currentProblem ? 'md:col-span-3' : 'md:col-span-1'}>
             <MissionPanel />
           </aside>
         </div>
