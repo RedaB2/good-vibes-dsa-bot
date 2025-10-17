@@ -65,7 +65,7 @@ const DraggableMember = ({ image, name, quote, initialX, initialY }: DraggableMe
         </svg>
 
         {/* Member Name */}
-        <div className="font-display text-sm text-primary/70 mb-1">{name}</div>
+        <div className="font-display text-sm text-white mb-1">{name}</div>
 
         {/* Member Image */}
         {image ? (
