@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { X, Send, MessageCircle } from "lucide-react";
+import { X, Send, MessageCircle, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
@@ -49,6 +49,10 @@ const ChatPanel = ({ isOpen, onClose, selectedContext, problemId, initialInput, 
       setIsClosing(false);
       onClose();
     }, 300); // Match animation duration
+  };
+
+  const handleClearConversation = () => {
+    setMessages([]);
   };
 
   useEffect(() => {
@@ -213,6 +217,17 @@ const ChatPanel = ({ isOpen, onClose, selectedContext, problemId, initialInput, 
           Vibes
         </h3>
         <div className="flex items-center gap-1">
+          {messages.length > 0 && (
+            <Button
+              size="icon"
+              variant="ghost"
+              onClick={handleClearConversation}
+              className="h-8 w-8 hover:bg-secondary-foreground/20"
+              title="Clear conversation"
+            >
+              <RotateCcw className="h-4 w-4" />
+            </Button>
+          )}
           <Button
             size="icon"
             variant="ghost"
