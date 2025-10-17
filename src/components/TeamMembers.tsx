@@ -115,7 +115,7 @@ const TeamMembers = () => {
     {
       image: "/images/member3.jpg",
       name: "Jainam",
-      quote: "Join us on this journey!",
+      quote: "ars longa, vita brevis",
       initialX: window.innerWidth - 300,
       initialY: window.innerHeight - 220,
       storageKey: "member-jainam-position",
