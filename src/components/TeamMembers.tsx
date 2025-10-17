@@ -99,7 +99,7 @@ const TeamMembers = () => {
     {
       image: "/images/member1.jpg",
       name: "Reda",
-      quote: "I almost thought of cheating, then I built Newton.",
+      quote: "I almost thought of cheating, then I built AlgoVibes.",
       initialX: 150,
       initialY: window.innerHeight - 200,
       storageKey: "member-reda-position",
