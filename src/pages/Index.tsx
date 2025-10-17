@@ -176,8 +176,8 @@ const Index = () => {
         </div>
       </main>
 
-      {/* Team Members - Independent draggable elements */}
-      <TeamMembers />
+      {/* Team Members - Independent draggable elements - Only on landing page */}
+      {!currentProblem && <TeamMembers />}
 
       {/* Founders Popup */}
       <FoundersPopup />
