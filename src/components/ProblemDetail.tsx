@@ -81,7 +81,7 @@ const ProblemDetail = ({ problem, onTextSelect, onClose, onHelpClick }: ProblemD
         </>
       )}
 
-      <div className="h-full overflow-y-auto p-4" onMouseUp={handleMouseUp}>
+      <div className="h-full p-4" onMouseUp={handleMouseUp}>
       <div className="bg-card/50 backdrop-blur-sm rounded-xl shadow-md hover:shadow-lg transition-all">
         <div className="p-6 bg-muted/10 rounded-t-xl relative">
           <button

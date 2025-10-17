@@ -175,7 +175,7 @@ const Index = () => {
 
           {/* Center: Problem Detail - Only shows when problem selected */}
           {currentProblem && (
-            <section className="w-full">
+            <section className="w-full overflow-y-auto">
               <ProblemDetail 
                 problem={currentProblem} 
                 onTextSelect={handleTextSelect}
