@@ -122,8 +122,8 @@ const Index = () => {
 
       <Header />
 
-      <main className="container mx-auto px-4 py-6 flex-1 relative">
-        <div className={`grid grid-cols-1 gap-6 h-[calc(100vh-200px)] ${
+      <main className="container mx-auto px-4 py-6 relative">
+        <div className={`grid grid-cols-1 gap-6 min-h-[calc(100vh-200px)] ${
           currentProblem ? 'md:grid-cols-1' : 'md:grid-cols-[320px_1fr]'
         }`}>
           {/* Left: Topic Accordion - Hover sidebar when problem selected */}
