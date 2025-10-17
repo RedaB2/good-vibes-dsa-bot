@@ -6,15 +6,11 @@ const FoundersPopup = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    // Show popup on first load
-    const hasSeenPopup = localStorage.getItem("hasSeenFoundersVideo");
-    if (!hasSeenPopup) {
-      setIsOpen(true);
-    }
+    // Show popup on every load
+    setIsOpen(true);
   }, []);
 
   const handleClose = () => {
-    localStorage.setItem("hasSeenFoundersVideo", "true");
     setIsOpen(false);
   };
 
