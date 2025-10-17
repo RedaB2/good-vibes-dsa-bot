@@ -1,7 +1,7 @@
 const TeamMembers = () => {
   const members = [
-    { image: "/images/member1.heic", name: "Member 1" },
-    { image: "/images/member2.heic", name: "Member 2" },
+    { image: "/images/member1.jpg", name: "Member 1" },
+    { image: "/images/member2.jpg", name: "Member 2" },
     { image: null, name: "Member 3" },
   ];
 
