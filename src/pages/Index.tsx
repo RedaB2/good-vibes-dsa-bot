@@ -8,11 +8,11 @@ import ChatPanel from "@/components/ChatPanel";
 import { problemDetails } from "@/data/problems";
 
 const Index = () => {
-  const [selectedProblemId, setSelectedProblemId] = useState<string>("two-sum");
+  const [selectedProblemId, setSelectedProblemId] = useState<string | null>(null);
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [selectedContext, setSelectedContext] = useState<string>();
 
-  const currentProblem = problemDetails[selectedProblemId];
+  const currentProblem = selectedProblemId ? problemDetails[selectedProblemId] : null;
 
   const handleTextSelect = (text: string) => {
     setSelectedContext(text);
@@ -61,7 +61,7 @@ const Index = () => {
         isOpen={isChatOpen}
         onClose={() => setIsChatOpen(false)}
         selectedContext={selectedContext}
-        problemId={selectedProblemId}
+        problemId={selectedProblemId || undefined}
       />
     </div>
   );
