@@ -65,7 +65,7 @@ const FloatingRobot = ({ onClick, isAnimating = false, animationPosition, positi
         top: `${displayPosition.y}px`,
         width: "80px",
         height: "80px",
-        zIndex: isAnimating ? 2000 : 1000,
+        zIndex: 2500,
         cursor: isDragging ? "grabbing" : "pointer",
         transition: isAnimating ? "all 0.8s cubic-bezier(0.4, 0, 0.2, 1)" : "none",
         pointerEvents: isAnimating ? "none" : "auto",
