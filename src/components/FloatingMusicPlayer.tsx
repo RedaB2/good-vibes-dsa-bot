@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Play, Pause, Volume2, SkipForward } from "lucide-react";
+import { Play, Pause, Volume2 } from "lucide-react";
 
 interface FloatingMusicPlayerProps {
   position: { x: number; y: number };
@@ -18,14 +18,6 @@ const FloatingMusicPlayer = ({ position, onPositionChange }: FloatingMusicPlayer
     {
       name: "Lofi Hip Hop Radio",
       videoId: "jfKfPfyJRdk" // Lofi Girl - beats to relax/study to
-    },
-    {
-      name: "Chill Lofi Beats",
-      videoId: "5qap5aO4i9A" // ChilledCow lofi hip hop radio
-    },
-    {
-      name: "Study & Focus",
-      videoId: "lTRiuFIWV54" // Lofi hip hop mix
     }
   ];
 
@@ -71,12 +63,6 @@ const FloatingMusicPlayer = ({ position, onPositionChange }: FloatingMusicPlayer
     }
   };
 
-  const nextTrack = () => {
-    const next = (currentTrack + 1) % tracks.length;
-    setCurrentTrack(next);
-    setIsPlaying(false);
-  };
-
   return (
     <div
       style={{
@@ -119,16 +105,6 @@ const FloatingMusicPlayer = ({ position, onPositionChange }: FloatingMusicPlayer
             {isPlaying ? "Playing" : "Paused"}
           </div>
         </div>
-
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            nextTrack();
-          }}
-          className="text-primary hover:text-primary/80 transition-colors p-2 rounded-lg hover:bg-primary/10"
-        >
-          <SkipForward size={18} />
-        </button>
       </div>
     </div>
   );
