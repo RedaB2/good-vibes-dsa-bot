@@ -20,13 +20,15 @@ const Index = () => {
   const [showLetsLearn, setShowLetsLearn] = useState(false);
   const [robotAnimationPosition, setRobotAnimationPosition] = useState<{ x: number; y: number } | undefined>();
   const [robotPosition, setRobotPosition] = useState(() => {
-    const saved = localStorage.getItem("robot-position");
-    return saved ? JSON.parse(saved) : { x: window.innerWidth - 100, y: window.innerHeight - 100 };
+    // Clear any saved position and use a clearly visible location
+    localStorage.removeItem("robot-position");
+    return { x: window.innerWidth - 120, y: 100 };
   });
   const hideTimeoutRef = React.useRef<NodeJS.Timeout>();
 
   React.useEffect(() => {
-    localStorage.setItem("robot-position", JSON.stringify(robotPosition));
+    // Don't save position to localStorage anymore to avoid hiding issues
+    // localStorage.setItem("robot-position", JSON.stringify(robotPosition));
   }, [robotPosition]);
 
   const currentProblem = selectedProblemId ? problemDetails[selectedProblemId] : null;
