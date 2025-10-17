@@ -67,17 +67,17 @@ const DraggableMember = ({ image, name, quote, initialX, initialY }: DraggableMe
         {/* Member Name */}
         <div className="font-display text-sm text-white mb-1">{name}</div>
 
-        {/* Member Image */}
-        {image ? (
-          <div className="relative">
-            <img
-              src={image}
-              alt={name}
-              onMouseDown={handleMouseDown}
-              onClick={() => setShowQuote(!showQuote)}
-              className="w-20 h-20 object-cover cursor-move select-none"
-              draggable={false}
-            />
+          {/* Member Image */}
+          {image ? (
+            <div className="relative">
+              <img
+                src={image}
+                alt={name}
+                onMouseDown={handleMouseDown}
+                onClick={() => setShowQuote(!showQuote)}
+                className="w-28 h-28 object-cover cursor-move select-none"
+                draggable={false}
+              />
 
             {/* Quote Bubble */}
             {showQuote && (
@@ -91,7 +91,7 @@ const DraggableMember = ({ image, name, quote, initialX, initialY }: DraggableMe
           <div
             onMouseDown={handleMouseDown}
             onClick={() => setShowQuote(!showQuote)}
-            className="w-20 h-20 bg-muted/10 flex items-center justify-center cursor-move relative"
+            className="w-28 h-28 bg-muted/10 flex items-center justify-center cursor-move relative"
           >
             <span className="text-muted-foreground text-xs">Soon</span>
           </div>
