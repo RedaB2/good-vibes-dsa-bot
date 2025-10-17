@@ -112,6 +112,19 @@ const ChatPanel = ({ isOpen, onClose, selectedContext, problemId, initialInput, 
     }
   }, [isDragging, dragOffset]);
 
+  // Animation effect - trigger scale animation after mount
+  useEffect(() => {
+    if (isOpening) {
+      requestAnimationFrame(() => {
+        const card = document.querySelector('[data-chat-panel]') as HTMLElement;
+        if (card) {
+          card.style.transform = 'scale(1)';
+          card.style.opacity = '1';
+        }
+      });
+    }
+  }, [isOpening]);
+
   const handleSend = async () => {
     if (!input.trim() || isLoading) return;
 
@@ -142,19 +155,6 @@ const ChatPanel = ({ isOpen, onClose, selectedContext, problemId, initialInput, 
   // Animation logic: start at scale 0 when opening, animate to scale 1
   const scale = isClosing ? 0 : (isOpening ? 0 : 1);
   const opacity = isClosing ? 0 : (isOpening ? 0 : 1);
-
-  // Use requestAnimationFrame to trigger animation after mount
-  useEffect(() => {
-    if (isOpening) {
-      requestAnimationFrame(() => {
-        const card = document.querySelector('[data-chat-panel]') as HTMLElement;
-        if (card) {
-          card.style.transform = 'scale(1)';
-          card.style.opacity = '1';
-        }
-      });
-    }
-  }, [isOpening]);
 
   return (
     <Card
