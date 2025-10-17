@@ -24,13 +24,13 @@ const ProblemDetail = ({ problem, onTextSelect }: ProblemDetailProps) => {
   };
 
   return (
-    <div className="h-full overflow-y-auto" onMouseUp={handleMouseUp}>
-      <Card className="border-2 border-border shadow-lg">
-        <CardHeader className="bg-muted/50">
+    <div className="h-full overflow-y-auto p-4" onMouseUp={handleMouseUp}>
+      <div className="bg-card/50 backdrop-blur-sm rounded-xl shadow-md hover:shadow-lg transition-all">
+        <div className="p-6 bg-muted/10 rounded-t-xl">
           <div className="flex items-start justify-between gap-4">
-            <CardTitle className="text-2xl font-semibold text-foreground">
+            <h2 className="text-2xl font-semibold text-foreground">
               {problem.title}
-            </CardTitle>
+            </h2>
             <Badge
               variant={problem.difficulty === "Easy" ? "default" : "secondary"}
               className={cn(
@@ -44,9 +44,9 @@ const ProblemDetail = ({ problem, onTextSelect }: ProblemDetailProps) => {
             </Badge>
           </div>
           <p className="text-sm text-muted-foreground mt-1">{problem.topic}</p>
-        </CardHeader>
+        </div>
 
-        <CardContent className="space-y-6 pt-6">
+        <div className="space-y-6 p-6">
           {/* Problem Statement */}
           <section>
             <h3 className="text-lg font-semibold mb-2 text-foreground">Problem Statement</h3>
@@ -68,7 +68,7 @@ const ProblemDetail = ({ problem, onTextSelect }: ProblemDetailProps) => {
             <h3 className="text-lg font-semibold mb-2 text-foreground">Examples</h3>
             <div className="space-y-3">
               {problem.examples.map((example, idx) => (
-                <div key={idx} className="bg-muted rounded-lg p-4 font-mono text-sm">
+                <div key={idx} className="bg-muted/30 rounded-lg p-4 font-mono text-sm">
                   <div className="text-foreground">
                     <span className="font-semibold">Input:</span> {example.in}
                   </div>
@@ -89,10 +89,9 @@ const ProblemDetail = ({ problem, onTextSelect }: ProblemDetailProps) => {
               </h3>
               {visibleHints < problem.hints.length && (
                 <Button
-                  variant="outline"
+                  variant="secondary"
                   size="sm"
                   onClick={() => setVisibleHints((prev) => Math.min(prev + 1, problem.hints.length))}
-                  className="border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground"
                 >
                   Show Hint {visibleHints + 1}
                   <ChevronDown className="ml-1 h-4 w-4" />
@@ -116,9 +115,9 @@ const ProblemDetail = ({ problem, onTextSelect }: ProblemDetailProps) => {
           {/* Solution Outline */}
           <section>
             <Button
-              variant="outline"
+              variant="secondary"
               onClick={() => setShowSolution(!showSolution)}
-              className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground mb-3"
+              className="w-full mb-3"
             >
               {showSolution ? (
                 <>
@@ -134,7 +133,7 @@ const ProblemDetail = ({ problem, onTextSelect }: ProblemDetailProps) => {
             </Button>
 
             {showSolution && (
-              <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
+              <div className="bg-primary/5 border-l-4 border-primary rounded-lg p-4">
                 <h3 className="text-lg font-semibold mb-3 text-foreground">Approach</h3>
                 <ol className="list-decimal list-inside space-y-2">
                   {problem.outline.map((step, idx) => (
@@ -146,8 +145,8 @@ const ProblemDetail = ({ problem, onTextSelect }: ProblemDetailProps) => {
               </div>
             )}
           </section>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 };

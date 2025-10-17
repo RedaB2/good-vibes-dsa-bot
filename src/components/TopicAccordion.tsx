@@ -25,18 +25,17 @@ const TopicAccordion = ({ onProblemSelect, selectedProblemId }: TopicAccordionPr
   };
 
   return (
-    <nav className="h-full overflow-y-auto bg-card rounded-xl border border-border shadow-md p-4">
-      <h2 className="text-xl font-semibold mb-4 text-foreground">Topics</h2>
+    <nav className="h-full overflow-y-auto p-4">
       <div className="space-y-2">
         {topics.map((topic) => {
           const isExpanded = expandedTopics.has(topic);
           const problems = problemsByTopic[topic] || [];
 
           return (
-            <div key={topic} className="border border-border rounded-lg overflow-hidden bg-background">
+            <div key={topic} className="rounded-lg overflow-hidden bg-card/50 backdrop-blur-sm shadow-md hover:shadow-lg transition-all">
               <button
                 onClick={() => toggleTopic(topic)}
-                className="w-full flex items-center justify-between p-3 hover:bg-muted transition-colors"
+                className="w-full flex items-center justify-between p-3 hover:bg-muted/50 transition-colors"
                 aria-expanded={isExpanded}
               >
                 <span className="font-medium text-foreground">{topic}</span>
@@ -48,7 +47,7 @@ const TopicAccordion = ({ onProblemSelect, selectedProblemId }: TopicAccordionPr
               </button>
 
               {isExpanded && (
-                <div className="border-t border-border bg-muted/30">
+                <div className="bg-muted/10">
                   {problems.map((problem) => {
                     const isSelected = selectedProblemId === problem.id;
                     return (
@@ -56,7 +55,7 @@ const TopicAccordion = ({ onProblemSelect, selectedProblemId }: TopicAccordionPr
                         key={problem.id}
                         onClick={() => onProblemSelect(problem.id)}
                         className={cn(
-                          "w-full text-left p-3 hover:bg-muted transition-colors border-t border-border first:border-t-0",
+                          "w-full text-left p-3 hover:bg-muted/30 transition-colors border-t border-border/50 first:border-t-0",
                           isSelected && "bg-secondary/10 border-l-4 border-l-secondary"
                         )}
                       >

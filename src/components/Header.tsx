@@ -2,7 +2,7 @@ import logoImage from "@/assets/good-vibes-logo.png";
 
 const Header = () => {
   return (
-    <header className="border-b border-border bg-card shadow-sm">
+    <header className="bg-card/50 backdrop-blur-sm shadow-md">
       <div className="container mx-auto px-4 py-6 relative">
         <h1 className="text-center text-5xl font-display text-secondary animate-float">
           Newton
