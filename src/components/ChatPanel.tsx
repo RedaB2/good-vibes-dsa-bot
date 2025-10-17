@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { X, Send, Minimize2, Maximize2, MessageCircle } from "lucide-react";
+import { X, Send, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
@@ -25,7 +25,6 @@ const ChatPanel = ({ isOpen, onClose, selectedContext, problemId, initialInput, 
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [isMinimized, setIsMinimized] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const [isClosing, setIsClosing] = useState(false);
@@ -77,9 +76,6 @@ const ChatPanel = ({ isOpen, onClose, selectedContext, problemId, initialInput, 
 
   const handleMouseMove = (e: MouseEvent) => {
     if (!isDragging) return;
-    // Calculate new robot position based on drag
-    const chatWidth = isMinimized ? 300 : 400;
-    const chatHeight = isMinimized ? 60 : 600;
     const newRobotX = Math.max(0, Math.min(window.innerWidth - 80, e.clientX - dragOffset.x - chatOffset.x));
     const newRobotY = Math.max(0, Math.min(window.innerHeight - 80, e.clientY - dragOffset.y - chatOffset.y));
     onRobotPositionChange({ x: newRobotX, y: newRobotY });
@@ -196,8 +192,8 @@ const ChatPanel = ({ isOpen, onClose, selectedContext, problemId, initialInput, 
         position: "fixed",
         left: `${chatX}px`,
         top: `${chatY}px`,
-        width: isMinimized ? "300px" : "400px",
-        height: isMinimized ? "60px" : "600px",
+        width: "400px",
+        height: "600px",
         zIndex: 1001,
         transformOrigin: "bottom right",
         transition: "transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-out",
@@ -220,14 +216,6 @@ const ChatPanel = ({ isOpen, onClose, selectedContext, problemId, initialInput, 
           <Button
             size="icon"
             variant="ghost"
-            onClick={() => setIsMinimized(!isMinimized)}
-            className="h-8 w-8 hover:bg-secondary-foreground/20"
-          >
-            {isMinimized ? <Maximize2 className="h-4 w-4" /> : <Minimize2 className="h-4 w-4" />}
-          </Button>
-          <Button
-            size="icon"
-            variant="ghost"
             onClick={handleClose}
             className="h-8 w-8 hover:bg-secondary-foreground/20"
           >
@@ -236,10 +224,8 @@ const ChatPanel = ({ isOpen, onClose, selectedContext, problemId, initialInput, 
         </div>
       </div>
 
-      {!isMinimized && (
-        <>
-          {/* Messages */}
-          <ScrollArea className="flex-1 p-4" ref={scrollRef}>
+      {/* Messages */}
+      <ScrollArea className="flex-1 p-4" ref={scrollRef}>
             <div className="space-y-4">
               {messages.length === 0 && (
                 <div className="text-center text-muted-foreground py-8">
@@ -270,35 +256,33 @@ const ChatPanel = ({ isOpen, onClose, selectedContext, problemId, initialInput, 
             </div>
           </ScrollArea>
 
-          {/* Input */}
-          <div className="p-3 border-t border-border bg-card">
-            {selectedContext && (
-              <div className="mb-2 text-xs text-muted-foreground bg-muted/50 rounded p-2">
-                <strong>Selected:</strong> {selectedContext.slice(0, 100)}
-                {selectedContext.length > 100 && "..."}
-              </div>
-            )}
-            <div className="flex gap-2">
-              <Input
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && handleSend()}
-                placeholder="Ask me anything..."
-                disabled={isLoading}
-                className="flex-1"
-              />
-              <Button
-                onClick={handleSend}
-                disabled={isLoading || !input.trim()}
-                size="icon"
-                className="bg-secondary hover:bg-secondary/90"
-              >
-                <Send className="h-4 w-4" />
-              </Button>
-            </div>
+      {/* Input */}
+      <div className="p-3 border-t border-border bg-card">
+        {selectedContext && (
+          <div className="mb-2 text-xs text-muted-foreground bg-muted/50 rounded p-2">
+            <strong>Selected:</strong> {selectedContext.slice(0, 100)}
+            {selectedContext.length > 100 && "..."}
           </div>
-        </>
-      )}
+        )}
+        <div className="flex gap-2">
+          <Input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleSend()}
+            placeholder="Ask me anything..."
+            disabled={isLoading}
+            className="flex-1"
+          />
+          <Button
+            onClick={handleSend}
+            disabled={isLoading || !input.trim()}
+            size="icon"
+            className="bg-secondary hover:bg-secondary/90"
+          >
+            <Send className="h-4 w-4" />
+          </Button>
+        </div>
+      </div>
     </Card>
   );
 };
