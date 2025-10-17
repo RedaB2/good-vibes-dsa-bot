@@ -20,12 +20,12 @@ const FloatingMusicPlayer = ({ position, onPositionChange }: FloatingMusicPlayer
       url: "https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3"
     },
     {
-      name: "Chill Beats",
-      url: "https://cdn.pixabay.com/audio/2022/03/10/audio_4deafc7339.mp3"
+      name: "Chill Vibes",
+      url: "https://cdn.pixabay.com/audio/2022/08/02/audio_0625c1539c.mp3"
     },
     {
-      name: "Ambient Focus",
-      url: "https://cdn.pixabay.com/audio/2022/11/22/audio_ba50541daf.mp3"
+      name: "Focus Flow",
+      url: "https://cdn.pixabay.com/audio/2023/09/22/audio_24759e4045.mp3"
     }
   ];
 
