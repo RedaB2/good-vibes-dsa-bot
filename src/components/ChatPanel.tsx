@@ -112,19 +112,6 @@ const ChatPanel = ({ isOpen, onClose, selectedContext, problemId, initialInput, 
     }
   }, [isDragging, dragOffset]);
 
-  // Animation effect - trigger scale animation after mount
-  useEffect(() => {
-    if (isOpening) {
-      requestAnimationFrame(() => {
-        const card = document.querySelector('[data-chat-panel]') as HTMLElement;
-        if (card) {
-          card.style.transform = 'scale(1)';
-          card.style.opacity = '1';
-        }
-      });
-    }
-  }, [isOpening]);
-
   const handleSend = async () => {
     if (!input.trim() || isLoading) return;
 
@@ -152,10 +139,6 @@ const ChatPanel = ({ isOpen, onClose, selectedContext, problemId, initialInput, 
   const chatX = robotPosition.x + chatOffset.x;
   const chatY = robotPosition.y + chatOffset.y;
 
-  // Animation logic: start at scale 0 when opening, animate to scale 1
-  const scale = isClosing ? 0 : (isOpening ? 0 : 1);
-  const opacity = isClosing ? 0 : (isOpening ? 0 : 1);
-
   return (
     <Card
       data-chat-panel
@@ -168,8 +151,9 @@ const ChatPanel = ({ isOpen, onClose, selectedContext, problemId, initialInput, 
         zIndex: 1001,
         transformOrigin: "bottom right",
         transition: "transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-out",
-        transform: `scale(${scale})`,
-        opacity: opacity,
+        transform: isClosing ? "scale(0)" : isOpening ? "scale(0)" : "scale(1)",
+        opacity: isClosing ? 0 : isOpening ? 0 : 1,
+        animation: isOpening ? "expandFromRobot 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards" : undefined,
       }}
       className="shadow-2xl border-2 border-secondary/20 overflow-hidden flex flex-col"
     >
