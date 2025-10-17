@@ -108,7 +108,12 @@ const ChatPanel = ({ isOpen, onClose, selectedContext, problemId, initialInput, 
   const handleSend = async () => {
     if (!input.trim() || isLoading) return;
 
-    const userMessage: Message = { role: "user", content: input };
+    // Include selected context in the message if it exists
+    const messageContent = selectedContext 
+      ? `Regarding this text: "${selectedContext}"\n\n${input}`
+      : input;
+
+    const userMessage: Message = { role: "user", content: messageContent };
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
     setIsLoading(true);
