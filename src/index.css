@@ -8,27 +8,27 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Good Vibes DSA Theme - Light Mode */
-    --background: 330 100% 95%;
-    --foreground: 220 26% 9%;
+    /* Good Vibes DSA Theme - Dark Elegant */
+    --background: 280 40% 8%;
+    --foreground: 0 0% 98%;
 
-    --card: 330 80% 97%;
-    --card-foreground: 220 26% 9%;
+    --card: 280 30% 12%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 330 80% 97%;
-    --popover-foreground: 220 26% 9%;
+    --popover: 280 30% 12%;
+    --popover-foreground: 0 0% 98%;
 
-    /* Primary - Dark Ink */
-    --primary: 220 26% 9%;
+    /* Primary - Dark with glow */
+    --primary: 280 35% 15%;
     --primary-foreground: 0 0% 98%;
 
     /* Secondary - Vibrant Pink */
     --secondary: 337 100% 70%;
     --secondary-foreground: 0 0% 100%;
 
-    /* Muted - Soft Pink */
-    --muted: 330 100% 92%;
-    --muted-foreground: 220 9% 46%;
+    /* Muted - Dark subtle */
+    --muted: 280 25% 18%;
+    --muted-foreground: 0 0% 70%;
 
     /* Accent - Pink Highlight */
     --accent: 337 100% 70%;
@@ -45,16 +45,17 @@ All colors MUST be HSL.
     --warning: 38 92% 50%;
     --warning-foreground: 0 0% 100%;
 
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
+    --border: 280 25% 20%;
+    --input: 280 25% 20%;
     --ring: 337 100% 70%;
 
     --radius: 1rem;
 
-    /* Shadows with pink tint */
-    --shadow-sm: 0 2px 4px hsl(337 100% 70% / 0.1);
-    --shadow-md: 0 4px 12px hsl(337 100% 70% / 0.15);
-    --shadow-lg: 0 8px 24px hsl(337 100% 70% / 0.2);
+    /* Glowing shadows */
+    --shadow-sm: 0 2px 8px hsl(0 0% 100% / 0.1);
+    --shadow-md: 0 4px 16px hsl(0 0% 100% / 0.15);
+    --shadow-lg: 0 8px 32px hsl(0 0% 100% / 0.2);
+    --shadow-glow: 0 0 30px hsl(337 100% 70% / 0.3);
   }
 
   .dark {
@@ -112,6 +113,13 @@ All colors MUST be HSL.
   }
 }
 
+/* Floating card effect */
+@layer components {
+  .card-float {
+    @apply shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1;
+  }
+}
+
 /* Custom animations */
 @keyframes float {
   0%, 100% {
@@ -145,9 +153,9 @@ All colors MUST be HSL.
 
 @keyframes pulse-glow {
   0%, 100% {
-    box-shadow: 0 0 20px hsl(var(--secondary) / 0.4);
+    box-shadow: 0 0 20px hsl(0 0% 100% / 0.2), 0 4px 16px hsl(0 0% 100% / 0.1);
   }
   50% {
-    box-shadow: 0 0 30px hsl(var(--secondary) / 0.6);
+    box-shadow: 0 0 40px hsl(0 0% 100% / 0.3), 0 8px 24px hsl(0 0% 100% / 0.15);
   }
 }
