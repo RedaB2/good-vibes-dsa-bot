@@ -170,14 +170,10 @@ const Index = () => {
             </aside>
           )}
         </div>
-
-        {/* Team Members Section - Subtle at bottom */}
-        {!currentProblem && (
-          <div className="mt-4">
-            <TeamMembers />
-          </div>
-        )}
       </main>
+
+      {/* Team Members - Independent draggable elements */}
+      {!currentProblem && <TeamMembers />}
 
       {/* Founders Popup */}
       <FoundersPopup />
