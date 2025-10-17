@@ -36,19 +36,18 @@ const Index = () => {
       setSelectedProblemId(problemId);
     }, 800);
     
-    // Move to corner and open chat
+    // Move to bottom right corner
     setTimeout(() => {
       setShowLetsLearn(false);
       const cornerX = window.innerWidth - 120;
-      const cornerY = 100;
+      const cornerY = window.innerHeight - 120;
       setRobotAnimationPosition({ x: cornerX, y: cornerY });
     }, 2300);
     
-    // End animation
+    // End animation (no auto-open chat)
     setTimeout(() => {
       setIsRobotAnimating(false);
       setRobotAnimationPosition(undefined);
-      setIsChatOpen(true);
     }, 3100);
   };
 
