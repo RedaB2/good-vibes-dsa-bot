@@ -113,7 +113,7 @@ const TeamMembers = () => {
       storageKey: "member-rohit-position",
     },
     {
-      image: null,
+      image: "/images/member3.jpg",
       name: "Jainam",
       quote: "Join us on this journey!",
       initialX: window.innerWidth - 300,
